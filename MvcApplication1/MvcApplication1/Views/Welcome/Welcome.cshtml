@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Welcome/_Layout.cshtml";
+    ViewBag.Title = "Welcome";
+    ViewBag.Message = "Welcome to Bookface, your connection for buying, selling, and trading books with students just like you.";
+}
+@section featured {    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+        </div>
+      </section>
+    }
+
+<div class="content-wrapper">
+            <p>
+                Create an account and start looking for books today.  Already a user?  Login to find new books and view offers on your books.
+            </p>
+</div>
