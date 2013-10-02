@@ -11,7 +11,7 @@ namespace MvcApplication1.Models
     public class UsersContext : DbContext
     {
         public UsersContext()
-            : base("UserDbConnect")
+            : base("Name=UserDbConnect")
         {
         }
 
