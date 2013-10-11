@@ -1,50 +1,198 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                     <a href='@Url.Action("Welcome", "Welcome")'>
-                        <img src='@Url.Content("~/Images/Bookface.png")' style="width:200px; height:100px"/>
-                    </a>
-                </div>
-                <div class="float-right">
-                    <section id="login">
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="generator" content="Google Web Designer 1.0.0.924">
+    <style type="text/css">
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+      }
+      body {
+        background-color: transparent;
+        -webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        -webkit-transform-style: preserve-3d;
+      }
+      .logo_bar {
+        position: relative;
+        width: 100%;
+        background-image: none;
+        background-color: rgb(223, 227, 238);
+        border-bottom-width: 1px;
+        border-style: none none ridge;
+        border-bottom-color: rgb(0, 0, 0);
+        height: 75px;
+      }
+      .nav_bar_class {
+        position: relative;
+        left: 0px;
+        width: 100%;
+        height: 75px;
+        background-image: none;
+        background-color: rgb(59, 89, 152);
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-style: ridge none;
+        border-top-color: rgb(10, 0, 0);
+        border-bottom-color: rgb(10, 0, 0);
+      }
+      .menu_float_class {
+        width: 200px;
+        height: 100%;
+        background-image: none;
+        background-color: rgb(59, 89, 152);
+        position: relative;
+        float: left;
+        -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        -webkit-transform-style: preserve-3d;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-style: ridge ridge ridge none;
+        border-top-color: rgb(0, 0, 0);
+        border-right-color: rgb(0, 0, 0);
+        border-bottom-color: rgb(0, 0, 0);
+      }
+      .ad_float_class {
+        width: 200px;
+        height: 100%;
+        position: relative;
+        float: right;
+        background-image: none;
+        background-color: rgb(223, 227, 238);
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+        border-style: ridge none ridge ridge;
+        border-top-color: rgb(0, 0, 0);
+        border-bottom-color: rgb(0, 0, 0);
+        border-left-color: rgb(0, 0, 0);
+      }
+      .iframe_style {
+        position: relative;
+        border: 1px ridge rgb(0, 0, 0);
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        left: 0px;
+        float: left;
+        height: 100%;
+        visibility: hidden;
+      }
+      .logo_style {
+        float: left;
+        height: 100%;
+        width: auto;
+      }
+      .page_title_class {
+        float: left;
+        color: rgb(255, 255, 255);
+        padding-left: 15px;
+        height: 100%;
+        font-size: 62px;
+      }
+      .mail_image_class {
+        height: 100%;
+        width: auto;
+        padding-left: 30px;
+      }
+      .side_pic_style {
+        width: 175px;
+        height: auto;
+      }
+      .side_menu_table_style {
+        width: 100%;
+        height: auto;
+      }
+      .button_style {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        color: rgb(255, 255, 255);
+        text-align: left;
+      }
+      .button_style:hover {
+        background-color: rgb(255, 255, 255);
+        color: rgb(59, 89, 152);
+      }
+      .search_button_class {
+        height: 100%;
+        width: auto;
+        float: right;
+      }
+      .search_bar_class {
+        height: 85%;
+        width: 400px;
+      }
+      .search_control_class {
+        float: right;
+        padding-right: 15px;
+        padding-top: 17px;
+        height: 50%;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="logo_bar" id="logo_head">
+      <img class="logo_style" id="logo_img" src="~/Images/Bookface.png">
+                    <section id="login" style="float: right">
                         @Html.Partial("_LoginPartial")
                     </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - Bookface</p>
-                </div>
-            </div>
-        </footer>
-
+    </div>
+    <div class="nav_bar_class" id="NavBar">
+      <div id="Page_Title" class="page_title_class">@ViewBag.Title</div>
+      <img src="~/Images/mail.png" class="mail_image_class">
+      <div id="search_control" class="search_control_class">
+        <input type="image" align="middle" src="~/Images/search-icon.png" id="search_button" class="search_button_class">
+        <input type="text" id="search_bar" align="middle" class="search_bar_class">
+      </div>
+    </div>
+    <div class="menu_float_class" id="left_menu">
+      <table class="side_menu_table_sytle" align="center">
+        <tbody>
+          <tr>
+            <td>
+              <img src="~/Images/placeholder.jpg" class="side_pic_style">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="button_style">My Profile</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="button_style">My Bookshelf</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="button_style">My Wishlist</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="button_style">My Messages</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <iframe class="iframe_style" id="content_iframe" src="http://www.w3schools.com"></iframe>
+    <div class="ad_float_class" id="ad_bar"></div>
+    <script>
+        // iFrame Sizing Code
+        window.onload = function () {
+            document.getElementById('content_iframe').style.width = (window.innerWidth - 421) + 'px';
+            document.getElementById('content_iframe').style.visibility = "visible";
+        };
+        window.onresize = window.onload;
+    </script>
+  </body>
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
-    </body>
-</html>
+    </html>

@@ -11,7 +11,7 @@
     <body>
         <header>
             <div class="content-wrapper">
-                <div class="float-left" >
+                <div class="float-left">
                     <a href='@Url.Action("Welcome", "Welcome")'>
                         <img src='@Url.Content("~/Images/Bookface.png")' style="width:auto; height:100px"/>
                     </a>
@@ -29,6 +29,13 @@
                 @RenderBody()
             </section>
         </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                </div>
+            </div>
+        </footer>
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
