@@ -54,7 +54,7 @@ namespace MvcApplication1.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Welcome", "Welcome");
         }
 
         //
@@ -81,7 +81,7 @@ namespace MvcApplication1.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Bookshelf", "Bookshelf");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -337,7 +337,7 @@ namespace MvcApplication1.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Welcome", "Welcome");
             }
         }
 
