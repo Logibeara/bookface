@@ -183,6 +183,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookshelfController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -309,6 +310,7 @@
     <Content Include="Views\Welcome\_Layout.cshtml" />
     <Content Include="Views\Account\_Layout.cshtml" />
     <Content Include="Views\Bookshelf\Bookshelf.cshtml" />
+    <Content Include="Views\Message\Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
