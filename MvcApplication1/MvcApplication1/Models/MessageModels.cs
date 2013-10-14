@@ -8,9 +8,9 @@ using System.Web.Security;
 
 namespace MvcApplication1.Models
 {
-    public class Message : DbContext
+    public class MessageContext : DbContext
     {
-        public Message()
+        public MessageContext()
             : base("UserDbConnect")
         {
         }

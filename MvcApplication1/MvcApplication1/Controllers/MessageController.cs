@@ -17,24 +17,27 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
-        public ActionResult AddTwo(int start)
-        {
-
-            return Content((start + 2).ToString());
-        }
 
 
         //
-        // POST: /Account/Login
+        // POST:
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddTwo(myInt model)
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AddTwo(int start)
         {
+            //get model from db
+
+            myInt model;
+            using (  MessageContext db = new MessageContext())
+            {
+                model = db.Current.First<myInt>();
+            }
+           
             model.value += 2;
             //update w.o db
-            return Content((model.value + 2).ToString());
+            return Content((model.value).ToString());
         }
     }
 }
