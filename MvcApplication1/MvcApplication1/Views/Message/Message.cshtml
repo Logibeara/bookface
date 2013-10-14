@@ -3,3 +3,16 @@
 }
 
 <h2>Message</h2>
+
+<script>
+    var myfunc = function () {
+        $.get("@Url.Action("AddTwo","message",new{start=0})" + $("#num").text(), null, function (result) {
+            $("#num").html(result);
+        });
+    };
+
+</script>
+
+    
+<input type="button" value="Message" onclick="myfunc()" />
+<p id="num">10</p>
