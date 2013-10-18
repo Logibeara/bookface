@@ -22,22 +22,39 @@ namespace MvcApplication1.Controllers
         //
         // POST:
 
-        //[HttpPost]
+        [HttpGet]
         //[AllowAnonymous]
         //[ValidateAntiForgeryToken]
         public ActionResult AddTwo(int start)
         {
             //get model from db
 
-            myInt model;
-            using (  MessageContext db = new MessageContext())
+            int retVal = 0;
+            using (  TestDbContext db = new TestDbContext())
             {
-                model = db.Current.First<myInt>();
+                var result = (from b in db.StartDbs
+                             select b).FirstOrDefault();
+                if (result == null)
+                {
+                    db.StartDbs.Add(new StartDb { Id = 0, value = 0 });
+                    db.SaveChanges();
+
+                }
+                else
+                {
+                    var finalResult = (result as StartDb).value;
+
+                    finalResult += 2;
+                    //write back
+
+                    result.value = finalResult;
+                    retVal = finalResult;
+                    db.SaveChanges();
+                }
             }
            
-            model.value += 2;
-            //update w.o db
-            return Content((model.value).ToString());
+            
+            return Content((retVal).ToString());
         }
     }
 }
