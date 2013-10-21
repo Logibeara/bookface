@@ -191,7 +191,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Mapping\MessageMap.cs" />
     <Compile Include="Models\Mapping\StartDbMap.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\StartDb.cs" />
     <Compile Include="Models\TestDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

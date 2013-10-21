@@ -16,10 +16,12 @@ namespace MvcApplication1.Models
         {
         }
 
+        public DbSet<Message> Messages { get; set; }
         public DbSet<StartDb> StartDbs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new MessageMap());
             modelBuilder.Configurations.Add(new StartDbMap());
         }
     }
