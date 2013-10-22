@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+} 
+@{for(int i = 0; i < 30; i++){
+<div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
+    <table class="list_box_table">
+   		<tr>
+        <td>
+      		<img class="thumbnail" src="~/Images/heroAccent.png">
+   		</td>
+        <td id="Title" class="title">
+            Title
+        </td>
+        <td id="Author" class="author">
+        	Author
+        </td>
+        <td id="Course" class="course">
+        	Course
+        </td>
+        <td id="Instructor" class="instructor">
+        	Instructor
+        </td>
+        <td id="Semester" class="semester">
+        	Semester
+        </td>
+        </tr>
+   </table>
+</div>
+}
+}

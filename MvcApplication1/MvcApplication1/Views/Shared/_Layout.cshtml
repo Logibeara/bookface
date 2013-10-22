@@ -70,7 +70,7 @@
         border-bottom-color: rgb(0, 0, 0);
         border-left-color: rgb(0, 0, 0);
       }
-      .iframe_style {
+      .frame_style {
         position: relative;
         border: 1px ridge rgb(0, 0, 0);
         border-top-left-radius: 0px;
@@ -81,6 +81,7 @@
         float: left;
         height: 100%;
         visibility: hidden;
+        overflow: auto;
       }
       .logo_style {
         float: left;
@@ -121,19 +122,66 @@
       .search_button_class {
         height: 100%;
         width: auto;
-        float: right;
+        vertical-align: middle;
       }
       .search_bar_class {
         height: 85%;
         width: 400px;
+        vertical-align: middle;
       }
       .search_control_class {
         float: right;
-        padding-right: 15px;
+        padding-right: 0px;
         padding-top: 17px;
         height: 50%;
+        vertical-align: middle;
+      }
+      .list_box_class {
+        background-color: #E2E2E2;
+        border-color: black;
+      	border-style: solid;
+      	border-width: 2px;
+        width: 85%;
+        height: 100px;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 10px;
+      }
+      .list_box_class:hover{
+      	background-color: #F2F2F2;
+      }
+      .thumbnail{
+      	width : 60px;
+        height: 85%; 
+        vertical-align: middle;
+        text-align: center;
+        
+      }
+      .list_box_table{
+      text-align: left;
+      vertical-align: middle;
+      height: 100%;
+      width: 100%;
+      }
+      .title{
+      font-size: 48px;
+      font-weight: bold;
+      }
+      .author{
+      font-size: 24px;
+      }
+      .course{
+      font-size: 24px;
+      }
+      .instructor{
+      font-size: 24px;
+      }
+      .semester{
+      font-size: 24px;
       }
     </style>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
   </head>
   
   <body>
@@ -147,8 +195,8 @@
       <div id="Page_Title" class="page_title_class">@ViewBag.Title</div>
       <img src="~/Images/mail.png" class="mail_image_class">
       <div id="search_control" class="search_control_class">
-        <input type="image" align="middle" src="~/Images/search-icon.png" id="search_button" class="search_button_class">
-        <input type="text" id="search_bar" align="middle" class="search_bar_class">
+        <input type="text" id="search_bar" class="search_bar_class">
+        <input type="image" src="~/Images/search-icon.png" id="search_button" class="search_button_class">
       </div>
     </div>
     <div class="menu_float_class" id="left_menu">
@@ -190,17 +238,16 @@
         </tbody>
       </table>
     </div>
-    <div class="iframe_style" id="content_iframe">@RenderBody()</div>
+    <div class="frame_style" id="content_frame">@RenderBody()</div>
     <div class="ad_float_class" id="ad_bar"></div>
     <script>
         // iFrame Sizing Code
         window.onload = function () {
-            document.getElementById('content_iframe').style.width = (window.innerWidth - 421) + 'px';
-            document.getElementById('content_iframe').style.visibility = "visible";
+            document.getElementById('content_frame').style.width = (window.innerWidth - 421) + 'px';
+            document.getElementById('content_frame').style.visibility = "visible";
         };
         window.onresize = window.onload;
     </script>
   </body>
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
+
     </html>

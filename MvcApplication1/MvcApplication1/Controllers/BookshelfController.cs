@@ -17,5 +17,10 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
+        public ActionResult GetList()
+        {
+            return View("~/Views/Shared/BookList.cshtml");
+        }
+
     }
 }
