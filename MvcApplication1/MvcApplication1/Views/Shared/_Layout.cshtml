@@ -12,6 +12,7 @@
       }
       body {
         background-color: transparent;
+        height: 100%
         -webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
         -webkit-transform-style: preserve-3d;
       }
@@ -40,7 +41,7 @@
       }
       .menu_float_class {
         width: 200px;
-        height: 100%;
+        height: calc(100% - 150px);
         background-image: none;
         background-color: rgb(59, 89, 152);
         position: relative;
@@ -57,7 +58,7 @@
       }
       .ad_float_class {
         width: 200px;
-        height: 100%;
+        height: calc(100% - 150px);
         position: relative;
         float: right;
         background-image: none;
@@ -79,7 +80,7 @@
         border-bottom-right-radius: 0px;
         left: 0px;
         float: left;
-        height: 100%;
+        height: calc(100% - 150px);
         visibility: hidden;
         overflow: auto;
       }
@@ -179,12 +180,42 @@
       .semester{
       font-size: 24px;
       }
+      .overlay {
+          width: 100%;
+          height: 100%;
+          visibility: hidden;
+          background-color: rgba(242,242,242,0.4);
+          position: absolute;
+          left:0px;
+          top:0px;
+          z-index: 1000;
+          display: table;
+      }
+        .overlay_helper {
+            display: table-cell;
+            width: 300px;
+            vertical-align:middle;
+        }
+      .overlay_div {
+          width: 300px;
+          background-color: rgba(242,242,242,1);
+          position: relative;
+          margin: 0 auto;
+          vertical-align: middle;
+      }
     </style>
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
   </head>
   
   <body>
+    <div class="overlay" id="overlay_parent">
+        <div class="overlay_helper" id="overlay_h">
+            <div class="overlay_div" id="overlay_content">
+                Test test test
+            </div>
+        </div>
+    </div>
     <div class="logo_bar" id="logo_head">
       <img class="logo_style" id="logo_img" src="~/Images/Bookface.png">
                     <section id="login" style="float: right">
