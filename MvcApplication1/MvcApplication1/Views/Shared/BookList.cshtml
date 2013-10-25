@@ -2,6 +2,7 @@
     Layout = null;
 } 
 @{for(int i = 0; i < 30; i++){
+      
 <div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
     <table class="list_box_table">
    		<tr>
@@ -26,5 +27,10 @@
         </tr>
    </table>
 </div>
+<script>
+    $(@Html.Raw(String.Format("'#list_box_{0}'", i))).click(function (event) {
+       
+    });
+</script>
 }
 }
