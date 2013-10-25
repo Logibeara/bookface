@@ -192,7 +192,11 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\Mapping\BookMap.cs" />
+    <Compile Include="Models\Mapping\CourseMap.cs" />
+    <Compile Include="Models\Mapping\ListingMap.cs" />
     <Compile Include="Models\Mapping\MessageMap.cs" />
     <Compile Include="Models\Mapping\StartDbMap.cs" />
     <Compile Include="Models\Message.cs" />
@@ -321,6 +325,8 @@
     <Content Include="Views\Message\Message.cshtml" />
     <Content Include="Views\Browse\Browse.cshtml" />
     <Content Include="Views\Bookshelf\PopupTest.cshtml" />
+    <Content Include="Views\Shared\BookList.cshtml" />
+    <Content Include="Views\Message\MessageList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
