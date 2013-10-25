@@ -21,6 +21,7 @@ namespace MvcApplication1.Models.Mapping
             this.Property(t => t.SenderID).HasColumnName("SenderID");
             this.Property(t => t.Message1).HasColumnName("Message");
             this.Property(t => t.IsRead).HasColumnName("IsRead");
+            this.Property(t => t.SendDate).HasColumnName("SendDate");
         }
     }
 }

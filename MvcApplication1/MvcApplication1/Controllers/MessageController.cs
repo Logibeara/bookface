@@ -17,7 +17,15 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
+        //get recieved messages for specified user  
+        //GET: /
 
+        [HttpGet]
+        
+        public ActionResult GetReceivedMessages(int accountid)
+        {
+            return View("~/Views/Message/MessageList.cshtml");
+        }
 
         //
         // POST:

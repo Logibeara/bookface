@@ -11,8 +11,14 @@
         });
     };
 
+    $.get('@Url.Action("GetReceivedMessages", "message", new { accountid = 999 })', null, function (result) {
+        $("#messagelist").html(result);
+    });
+
 </script>
 
     
 <input type="button" value="Message" onclick="myfunc()" />
 <p id="num">10</p>
+
+<div style ="width:100%" id="messagelist"></div>
