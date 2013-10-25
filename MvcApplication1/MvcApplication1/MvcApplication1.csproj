@@ -191,6 +191,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Mapping\BookMap.cs" />
     <Compile Include="Models\Mapping\MessageMap.cs" />
     <Compile Include="Models\Mapping\StartDbMap.cs" />
     <Compile Include="Models\Message.cs" />
