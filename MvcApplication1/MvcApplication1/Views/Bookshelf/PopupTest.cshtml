@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+}
+
+<div>
+    This was opened by @Html.Encode(ViewData["id"])
+    <button id="close">Close</button>
+</div>
+<script>
+    $('#close').click(function () {
+        $('#overlay_parent').css('visibility', 'hidden');
+    });
+</script>

@@ -29,7 +29,11 @@
 </div>
 <script>
     $(@Html.Raw(String.Format("'#list_box_{0}'", i))).click(function (event) {
-       
+        $('#overlay_parent').css('visibility', 'visible');
+        $('#overlay_div').html('<progress max="100"></progress>');
+        $.get('@Url.Action("PopupTest", "Bookshelf", new {id=i})', null, function (result) {
+            $('#overlay_content').html(result);
+        });
     });
 </script>
 }

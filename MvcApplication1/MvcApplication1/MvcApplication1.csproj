@@ -320,6 +320,7 @@
     <Content Include="Views\Bookshelf\Bookshelf.cshtml" />
     <Content Include="Views\Message\Message.cshtml" />
     <Content Include="Views\Browse\Browse.cshtml" />
+    <Content Include="Views\Bookshelf\PopupTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

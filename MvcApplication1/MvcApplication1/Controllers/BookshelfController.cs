@@ -22,5 +22,11 @@ namespace MvcApplication1.Controllers
             return View("~/Views/Shared/BookList.cshtml");
         }
 
+        public ActionResult PopupTest(int id)
+        {
+            ViewData["id"] = id;
+            return View("~/Views/Bookshelf/PopupTest.cshtml");
+        }
+
     }
 }
