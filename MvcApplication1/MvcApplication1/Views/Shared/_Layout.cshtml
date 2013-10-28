@@ -198,7 +198,7 @@
             vertical-align:middle;
         }
       .overlay_div {
-          width: 300px;
+          width: auto;
           background-color: rgba(242,242,242,1);
           position: relative;
           margin: 0 auto;
@@ -288,8 +288,10 @@
         <meta charset="UTF-8" />
         <meta http-equiv="refresh" content="0; url=@Url.Action("Login", "Account", new {returnUrl = Request.Url.ToString()})">
         <title></title>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
     </head>
-    <body>
+    <body style ="visibility: hidden">
         Rerouting to login...
         @RenderBody()
     </body>

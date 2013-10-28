@@ -327,6 +327,7 @@
     <Content Include="Views\Bookshelf\PopupTest.cshtml" />
     <Content Include="Views\Shared\BookList.cshtml" />
     <Content Include="Views\Message\MessageList.cshtml" />
+    <Content Include="Views\Message\Compose.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,51 @@
+﻿@model MvcApplication1.Models.Message
+
+@{
+    Layout = null;
+    ViewBag.Title = "Message";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Compose</title>
+</head>
+<body>
+    <div>
+        <table>
+        <tbody>
+        <tr> to: @Html.LabelFor(m => m.Sender)</tr>
+        <tr>
+        <td>
+        <form>
+        <table>
+        <tbody>
+        <tr><td>Publication Title:</td>   <td><textarea id="title" rows="1" cols="60"></textarea></td></tr>
+        <tr><td>Authors:</td>             <td><textarea id="authors" rows="1" cols="60"></textarea></td></tr>
+        <tr><td>Published At:</td>        <td><textarea id="publishedAt" rows="1" cols="60"></textarea></td></tr>
+        <tr><td>Year of Publication:</td> <td><input type="text" id="year"/></td></tr>
+        <tr><td>Type of Publication:</td> <td><input type="radio" id="conf" name="type"/>Conference Proceedings <input type="radio" id="jour", name="type""/>Journal </td></tr>
+        </tbody>
+        </table>
+        <div id="nf"><div id="newField"></div></div>
+        <br/>
+        <input type="button" value="Add" id="addForm"/>
+        </form>
+
+
+        </td>
+
+        <td>
+        <textarea id="jsonarea" rows="16" cols="65" >Message goes here</textarea>
+        <br/>
+        <input type="button" value="Add" id="addJSON"/>
+        <input type="button" value="Remove" id="removeJSON"/>
+        </td>
+
+        </tbody>
+        </table>
+    </div>
+</body>
+</html>
