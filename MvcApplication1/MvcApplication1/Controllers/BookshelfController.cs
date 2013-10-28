@@ -19,6 +19,8 @@ namespace MvcApplication1.Controllers
 
         public ActionResult GetList()
         {
+            Random random = new Random();
+            ViewBag.numBooks = random.Next(1, 30); ;
             return View("~/Views/Shared/BookList.cshtml");
         }
 
