@@ -1,8 +1,13 @@
 ﻿@{
     Layout = null;
-} 
-@{for(int i = 0; i < ViewBag.numBooks; i++){
-      
+    
+    MvcApplication1.Models.Book book;
+    List<MvcApplication1.Models.Book> bookList = (List<MvcApplication1.Models.Book>) ViewData["BookList"];
+}
+
+@{for(int i = 0; i < bookList.Count; i++){
+      book = bookList[i];
+          
 <div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
     <table class="list_box_table">
    		<tr>
@@ -10,10 +15,10 @@
       		<img class="thumbnail" src="~/Images/heroAccent.png">
    		</td>
         <td id="Title" class="title">
-            Title
+            @book.BookName
         </td>
         <td id="Author" class="author">
-        	Author
+        	@book.Author
         </td>
         <td id="Course" class="course">
         	Course

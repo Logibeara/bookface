@@ -203,6 +203,7 @@
     <Compile Include="Models\StartDb.cs" />
     <Compile Include="Models\TestDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\BookUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
