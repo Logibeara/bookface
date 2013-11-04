@@ -15,8 +15,6 @@
 
     /* unhide popup and populate it with compose form */
     var compose = function () {
-        //unhide popup div
-        $('#overlay_parent').css('visibility', 'visible');
         $('#overlay_div').html('<progress max="100"></progress>');
         
 
@@ -25,6 +23,10 @@
         $.get('@Url.Action("Compose", "Message")', null, function (result) {
             $('#overlay_content').html(result);
         });
+
+        //unhide popup div
+        $('#overlay_parent').css('visibility', 'visible');
+
     }
 
     $.get('@Url.Action("GetReceivedMessages", "message", new { accountid = 999 })', null, function (result) {
