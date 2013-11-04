@@ -3,3 +3,16 @@
 }
 
 <h2>Browse</h2>
+
+<script>
+    //AJAX call to get book list
+    document.onload = function () {
+        
+    }
+
+    $.get('@Url.Action("GetBookList", "browse", null)', null, function (result) {
+        $("#BookList").html(result);
+    });
+</script>
+
+<div style ="width:100%" id="BookList"></div>
