@@ -30,7 +30,7 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult Compose()
         {
-            return View("~/Views/Message/Compose.cshtml", );
+            return View("~/Views/Message/Compose.cshtml");
         }
 
         //
