@@ -4,6 +4,50 @@
     ViewBag.Title = "Message";
 }
 
+<script>
+
+    /* unhide popup and populate it with compose form */
+    var cancel = function () {
+        //unhide popup div
+        $('#overlay_parent').css('visibility', 'hidden');
+    }
+
+    var send = function ()
+    {
+        //send message
+        //call funciton to grab html
+        
+        $.post('@Html.Raw(@Url.Action("Send", "Message", new { recipient = 999,sender = 999,  subject = "test", message = "testmessage" }))', null, function (result) {
+            $('#send_status').html(result);
+        });
+    }
+
+    /* attach a submit handler to the form*/ 
+    $("#messageForm").submit(function (event) {
+
+        /*stop form from submitting normally*/
+        event.preventDefault();
+
+        var formData = $(this).serialize();
+        
+       
+        /*get some values from elements on the page: */
+        var $form = $(this),
+            url = $form.attr('action');
+
+        /*send the data using post */
+        var posting = $.post(url, formData);
+
+        /*put the results in a div */
+        posting.done(function (data) {
+            $("#send_status").empty().append(data);
+        });
+
+    });
+
+</script>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -18,31 +62,23 @@
         <!-- tr > to: //Html.LabelFor(m => m.Sender)</!-->
         <tr>
         <td>
-        <form>
+
+        <form method="post" id="messageForm" action='@Url.Action("Send", "Message")'>
         <table>
         <tbody>
-        <tr><td>Publication Title:</td>   <td><textarea id="title" rows="1" cols="60"></textarea></td></tr>
-        <tr><td>Authors:</td>             <td><textarea id="authors" rows="1" cols="60"></textarea></td></tr>
-        <tr><td>Published At:</td>        <td><textarea id="publishedAt" rows="1" cols="60"></textarea></td></tr>
-        <tr><td>Year of Publication:</td> <td><input type="text" id="year"/></td></tr>
-        <tr><td>Type of Publication:</td> <td><input type="radio" id="conf" name="type"/>Conference Proceedings <input type="radio" id="jour", name="type""/>Journal </td></tr>
+        <tr><td>Send To:</td><td><textarea id="recipient" name="recipient" rows="1" cols="65"> test</textarea></td></tr>
+        <tr><td>From:</td><td><textarea id="sender" name="sender" rows="1" cols="65" ></textarea></td></tr>
+        <tr><td>Subject:</td><td><textarea id="subject" name="subject" rows="1" cols="65"></textarea></td></tr>
+        <tr><td>Message:</td> </tr>
         </tbody>
         </table>
-        <div id="nf"><div id="newField"></div></div>
+        <textarea rows="16" cols="73" id="message" name="message"/>
         <br/>
-        <input type="button" value="Add" id="addForm"/>
+            
+        <p id ="send_status"></p>
+        <input type="submit" value="Send" id="sendButton" />
+        <input type="button" value="Cancel" id="cancelButton" onclick="cancel()"/>
         </form>
-
-
-        </td>
-
-        <td>
-        <textarea id="jsonarea" rows="16" cols="65" >Message goes here</textarea>
-        <br/>
-        <input type="button" value="Add" id="addJSON"/>
-        <input type="button" value="Remove" id="removeJSON"/>
-        </td>
-
         </tbody>
         </table>
     </div>
