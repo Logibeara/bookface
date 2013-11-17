@@ -14,6 +14,12 @@ namespace MvcApplication1.Utils
 
             using (TestDbContext db = new TestDbContext())
             {
+                //book db depends on course db
+                if (db.Courses.Count() == 0)
+                {
+                    CourseUtils.initCourseDb(db);
+                }
+
                 //initialize book table if needed
                 if (db.Books.Count() == 0)
                 {
@@ -21,6 +27,12 @@ namespace MvcApplication1.Utils
                 }
 
                 book = db.Books.Find(bookID);
+
+                //This line is needed because LINQ requests are lazily loaded and the
+                //TestDbContext was being destroyed before the Course was being resolved.
+                //The same thing will need to be done for all foreign key lookups.
+                book.Course = book.Course;
+
                 if (book == null)
                 {
                     //no book with the given ID, report error?
@@ -37,26 +49,31 @@ namespace MvcApplication1.Utils
             {
                 BookName = "I Swear I'm Not Crazy",
                 Author = "Oprah Winfrey",
+                CourseID = 1
             });
             db.Books.Add(new Book
             {
                 BookName = "The Mysterious Package",
                 Author = "Mike Rotch",
+                CourseID = 2
             });
             db.Books.Add(new Book
             {
                 BookName = "Saggy Diapers",
                 Author = "Seymor Butts",
+                CourseID = 2
             });
             db.Books.Add(new Book
             {
                 BookName = "The Man Inside Me",
                 Author = "Tobias Funke",
+                CourseID = 1
             });
             db.Books.Add(new Book
             {
                 BookName = "The Neverending Search",
                 Author = "Amanda Huganchis",
+                CourseID = 2
             });
             db.SaveChanges();
         }

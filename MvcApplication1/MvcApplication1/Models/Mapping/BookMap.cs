@@ -35,6 +35,13 @@ namespace MvcApplication1.Models.Mapping
             this.Property(t => t.Author).HasColumnName("Author");
             this.Property(t => t.Description).HasColumnName("Description");
             this.Property(t => t.CoverPic).HasColumnName("CoverPic");
+            this.Property(t => t.CourseID).HasColumnName("CourseID");
+
+            // Relationships
+            this.HasOptional(t => t.Course)
+                .WithMany(t => t.Books)
+                .HasForeignKey(d => d.CourseID);
+
         }
     }
 }

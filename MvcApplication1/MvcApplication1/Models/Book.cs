@@ -11,5 +11,7 @@ namespace MvcApplication1.Models
         public string Author { get; set; }
         public string Description { get; set; }
         public byte[] CoverPic { get; set; }
+        public Nullable<int> CourseID { get; set; }
+        public virtual Course Course { get; set; }
     }
 }
