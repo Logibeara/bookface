@@ -22,6 +22,23 @@ namespace MvcApplication1.Controllers
         [HttpGet]
         public ActionResult GetReceivedMessages(int accountid)
         {
+            List<Message> msgList;
+
+            //get list of messages with account id as 
+            using (TestDbContext db = new TestDbContext())
+            {
+
+                IQueryable<Message> messages = from m in db.Messages
+                                               orderby m.SendDate
+                                               where m.RecipientID == accountid
+                                               select m;
+
+              msgList = messages.ToList<Message>();
+
+            }
+            
+            ViewData["Messages"] = msgList;
+            
             return View("~/Views/Message/MessageList.cshtml");
         }
 
@@ -31,6 +48,36 @@ namespace MvcApplication1.Controllers
         public ActionResult Compose()
         {
             return View("~/Views/Message/Compose.cshtml");
+        }
+
+        //send a message through a post  
+        //GET: /
+        [HttpPost]
+        public ActionResult Send(string recipient = "no recipient", string sender = "no sender", String subject = "no subject", String message = "empty message")
+        {
+            //convert names to strings?
+
+            //create a new message object
+
+            //write message to database
+            using (TestDbContext db = new TestDbContext())
+            {
+                db.Messages.Add(new Message{
+                    IsRead = false,
+                    Message1 = message,
+                    MessageID = 100,
+                    RecipientID = 996,
+                    SendDate = DateTime.Now,
+                    SenderID = 100,
+                    SenderName = sender}
+                    );
+
+                db.SaveChanges();
+            }
+
+            //return View("~/Views/Message/Compose.cshtml");
+            return Content("Message Sent");
+        
         }
 
         //

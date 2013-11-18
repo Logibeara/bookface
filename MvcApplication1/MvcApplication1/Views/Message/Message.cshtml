@@ -5,7 +5,6 @@
 <h2>Message</h2>
 
 <script>
-
     /* test funciton for incrementing a value by 2 for testing purposes */
     var myfunc = function () {
         $.get("@Url.Action("AddTwo","message",new{start=0})" + $("#num").text(), null, function (result) {
@@ -13,23 +12,22 @@
         });
     };
 
+    //hook up popup
+
     /* unhide popup and populate it with compose form */
     var compose = function () {
         $('#overlay_div').html('<progress max="100"></progress>');
         
-
-
         //call funciton to grab html
-        $.get('@Url.Action("Compose", "Message")', null, function (result) {
+       $.get('@Url.Action("Compose", "Message")', null, function (result) {
             $('#overlay_content').html(result);
         });
 
         //unhide popup div
         $('#overlay_parent').css('visibility', 'visible');
-
     }
 
-    $.get('@Url.Action("GetReceivedMessages", "message", new { accountid = 999 })', null, function (result) {
+    $.get('@Url.Action("GetReceivedMessages", "message", new { accountid = 996 })', null, function (result) {
         $("#messagelist").html(result);
     });
 
@@ -38,6 +36,5 @@
 <input type="button" value="Compose" onclick="compose()" />
 <input type="button" value="Message" onclick="myfunc()" />
 <p id="num">10</p>
-
 
 <div style ="width:100%" id="messagelist"></div>

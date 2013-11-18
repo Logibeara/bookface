@@ -1,26 +1,32 @@
-﻿@{
+﻿
+@using MvcApplication1.Models
+@model MvcApplication1.Models.Message
+@{
     Layout = null;
+    var i = 0;
+    var messageList = ViewData["Messages"] as List<Message>;
 } 
-@{for(int i = 0; i < 30; i++){
+
+@{foreach( Message m in messageList) {
       
-<div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
+<div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i++))>
     <table class="list_box_table">
    		<tr>
-        <td>
+        <td style="width:50px">
       		<img class="thumbnail" src="~/Images/heroAccent.png">
    		</td>
-        <td id="Sender" class="sender">
-            Sender
+        <td style="width:20px" id="Sender" class="sender">
+            @m.SenderName
         </td>
-        <td id="TruncatedMessage" class="truncatedmessage">
-        	Truncated Message
+        <td style="width:100px" id="TruncatedMessage" class="truncatedmessage">
+        	@m.Message1
         </td>
                
-        <td id="IsRead" class="isread">
-        	Is Read
+        <td style="width:50px" id="IsRead" class="isread">
+            @m.IsRead
         </td>
-        <td id="SendDate" class="senddate">
-        	Send Date
+        <td style="width:50px"  id="SendDate" class="senddate">
+        	@m.SendDate
         </td>
         </tr>
    </table>
