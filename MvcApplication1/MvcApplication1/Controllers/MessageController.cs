@@ -80,6 +80,26 @@ namespace MvcApplication1.Controllers
         
         }
 
+        [HttpPost]
+        public ActionResult GetMessage(string id){
+
+            Message myMessage;
+            int mid = Convert.ToInt32(id);
+            using (TestDbContext db = new TestDbContext())
+            {
+
+                IQueryable<Message> messages = from m in db.Messages
+                                               orderby m.SendDate
+                                               where m.MessageID == mid
+                                               select m;
+
+                myMessage = messages.ToList<Message>().First<Message>();
+
+            }
+
+            ViewData["currentMessage"] = myMessage;
+            return View("~/Views/Message/ViewMessage.cshtml");
+        }
         //
         // POST:
 
