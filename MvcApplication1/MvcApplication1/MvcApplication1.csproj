@@ -339,6 +339,7 @@
     <Content Include="Views\Message\MessageList.cshtml" />
     <Content Include="Views\Message\Compose.cshtml" />
     <Content Include="Views\Shared\BookDetails.cshtml" />
+    <Content Include="Views\Message\ViewMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

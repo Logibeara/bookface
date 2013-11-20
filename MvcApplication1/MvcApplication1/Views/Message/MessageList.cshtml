@@ -9,7 +9,7 @@
 
 @{foreach( Message m in messageList) {
       
-<div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i++))>
+<div class="list_box_class" @Html.Raw(String.Format("id=\"{0}\"", m.MessageID))>
     <table class="list_box_table">
    		<tr>
         <td style="width:50px">
@@ -32,9 +32,26 @@
    </table>
 </div>
 <script>
-    $(@Html.Raw(String.Format("'#list_box_{0}'", i))).click(function (event) {
-       
+    $(@Html.Raw(String.Format("'#{0}'", m.MessageID))).mousedown(function (event) {
+        switch (event.which) {
+            case 1: //LMB click
+                $('#overlay_content').html('<progress max="100"></progress>');
+                $('#overlay_parent').css('visibility', 'visible');
+                $.post('./GetMessage', {id: @m.MessageID}, function(result){
+                    $('#overlay_content').html(result);
+                });
+                break;
+            case 3: //RMB click
+                var w = window.open();
+                $(w.document.body).html('<progress max="100"></progress>');
+                $.post('./GetMessage',{id: @m.MessageID}, function(result){
+                    $(w.document.body).html(result);
+                });
+                break;
+            default: //not useful
+                break;
+        }
     });
 </script>
-}
+  }
 }

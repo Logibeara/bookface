@@ -338,7 +338,7 @@ namespace MvcApplication1.Controllers
             }
             else
             {
-                return RedirectToAction("Welcome", "Welcome");
+                return RedirectToAction("Bookshelf", "Bookshelf");
             }
         }
 

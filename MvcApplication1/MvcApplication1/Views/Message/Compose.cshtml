@@ -10,41 +10,24 @@
     var cancel = function () {
         //unhide popup div
         $('#overlay_parent').css('visibility', 'hidden');
-    }
+    };
 
-    var send = function ()
-    {
+    var send = function () {
         //send message
         //call funciton to grab html
-        
-        $.post('@Html.Raw(@Url.Action("Send", "Message", new { recipient = 999,sender = 999,  subject = "test", message = "testmessage" }))', null, function (result) {
-            $('#send_status').html(result);
+
+        $.post('./Send', $('#messageForm').serialize(), function (result) {
+            $('#overlay_content').html(result + '<br><button id="CloseDiv">Close</button>');
+            $('#CloseDiv').click(function () {
+                $('#overlay_parent').css('visibility', 'hidden');
+                $.get('@Url.Action("GetReceivedMessages", "message", new { accountid = 996 })', null, function (result) {
+                    if($("#messagelist").length){//see if its there
+                        $("#messagelist").html(result);
+                    }
+                });
+            });
         });
-    }
-
-    /* attach a submit handler to the form*/ 
-    $("#messageForm").submit(function (event) {
-
-        /*stop form from submitting normally*/
-        event.preventDefault();
-
-        var formData = $(this).serialize();
-        
-       
-        /*get some values from elements on the page: */
-        var $form = $(this),
-            url = $form.attr('action');
-
-        /*send the data using post */
-        var posting = $.post(url, formData);
-
-        /*put the results in a div */
-        posting.done(function (data) {
-            $("#send_status").empty().append(data);
-        });
-
-    });
-
+    };
 </script>
 
 
@@ -59,7 +42,7 @@
     <div>
         <table>
         <tbody>
-        <!-- tr > to: //Html.LabelFor(m => m.Sender)</!-->
+
         <tr>
         <td>
 
@@ -76,7 +59,7 @@
         <br/>
             
         <p id ="send_status"></p>
-        <input type="submit" value="Send" id="sendButton" />
+        <input type="button" value="Send" id="sendButton" onclick="send()" />
         <input type="button" value="Cancel" id="cancelButton" onclick="cancel()"/>
         </form>
         </tbody>

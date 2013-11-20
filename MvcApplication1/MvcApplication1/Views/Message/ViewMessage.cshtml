@@ -1,0 +1,10 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "ViewMessage";
+
+    var m = ViewData["currentMessage"] as MvcApplication1.Models.Message;
+}
+
+<h2>ViewMessage</h2>
+<div id="messageData"><p>@m.Message1</p></div>
+<button id="close">Close</button>
