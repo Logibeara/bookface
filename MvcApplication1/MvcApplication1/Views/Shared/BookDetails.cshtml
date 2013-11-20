@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "BookDetails";
+    MvcApplication1.Models.Book book = (MvcApplication1.Models.Book) ViewData["book"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BookDetails</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tbody>
+                <tr><td>Title: </td><td>@book.BookName</td></tr>
+                <tr><td>Author: </td><td>@book.Author</td></tr>
+                <tr><td>Description: </td><td>@book.Description</td></tr>
+                <tr><td>ISBN: </td><td>@book.ISBN</td></tr>
+                <br />
+                <tr><td>Course: </td><td>@book.Course.abbrev()</td></tr>
+                <tr><td>Instructor: </td><td>@book.Course.Instructor</td></tr>
+            </tbody>
+        </table>
+
+        <button id="close">Close</button>
+    </div>
+</body>
+</html>
+
+<script>
+    $('#close').click(function () {
+        $('#overlay_parent').css('visibility', 'hidden');
+    });
+</script>

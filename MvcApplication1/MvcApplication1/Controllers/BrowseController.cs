@@ -21,7 +21,7 @@ namespace MvcApplication1.Controllers
         public ActionResult GetBookList()
         {
             //test list of IDs to populate the list based on test book table
-            int[] IDs = { 1, 2, 3, 4, 5 };
+            int[] IDs = { 1, 2, 3, 4, 5, 6 };
 
             List<Book> bookList = new List<Book>();
             for(int i = 0; i < IDs.Length; i++)

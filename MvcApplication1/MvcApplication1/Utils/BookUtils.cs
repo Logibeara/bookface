@@ -49,31 +49,49 @@ namespace MvcApplication1.Utils
             {
                 BookName = "I Swear I'm Not Crazy",
                 Author = "Oprah Winfrey",
-                CourseID = 1
+                CourseID = 1,
+                Description = "She totally is.",
+                ISBN = "123456789"
             });
             db.Books.Add(new Book
             {
                 BookName = "The Mysterious Package",
                 Author = "Mike Rotch",
-                CourseID = 2
+                CourseID = 2,
+                Description = "What could it contain?!",
+                ISBN = "987654321"
             });
             db.Books.Add(new Book
             {
                 BookName = "Saggy Diapers",
                 Author = "Seymor Butts",
-                CourseID = 2
+                CourseID = 2,
+                Description = "Some things can't be unseen.",
+                ISBN = "12345654321"
             });
             db.Books.Add(new Book
             {
                 BookName = "The Man Inside Me",
                 Author = "Tobias Funke",
-                CourseID = 1
+                CourseID = 1,
+                Description = "For there's a man inside me, and only when he's finally out, can I walk free of pain.",
+                ISBN = "88888888888"
             });
             db.Books.Add(new Book
             {
                 BookName = "The Neverending Search",
                 Author = "Amanda Huganchis",
-                CourseID = 2
+                CourseID = 2,
+                Description = "Don't you want somebody to love?",
+                ISBN = "1248163264"
+            });
+            db.Books.Add(new Book
+            {
+                BookName = "Whoopi",
+                Author = "Goldberg",
+                CourseID = 1,
+                Description = "This book is awesome!",
+                ISBN = "65322476513"
             });
             db.SaveChanges();
         }
