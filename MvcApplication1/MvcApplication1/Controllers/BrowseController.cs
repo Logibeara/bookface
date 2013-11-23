@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using MvcApplication1.Models;
 using MvcApplication1.Utils;
+using System.Net.Http;
+using System.Net;
+using System.Net.Http.Formatting;
 
 namespace MvcApplication1.Controllers
 {
@@ -31,6 +34,17 @@ namespace MvcApplication1.Controllers
 
             ViewData["BookList"] = bookList;
             return View("~/Views/Shared/BookList.cshtml");
+        }
+
+        public object AutoComplete(string term)
+        {
+            using(TestDbContext db = new TestDbContext())
+            {
+               var returnArr = db.Books.Select(b => new {
+                   value = b.BookName
+                }).Take(5).ToArray();
+               return this.Json(returnArr, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

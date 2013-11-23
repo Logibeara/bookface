@@ -291,6 +291,7 @@
         <meta http-equiv="refresh" content="0; url=@Url.Action("Login", "Account", new {returnUrl = Request.Url.ToString()})">
         <title></title>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui");
     @RenderSection("scripts", required: false)
     </head>
     <body style ="visibility: hidden">
