@@ -209,6 +209,7 @@
       }
     </style>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
   </head>
   
@@ -279,8 +280,16 @@
         window.onload = function () {
             document.getElementById('content_frame').style.width = (window.innerWidth - 421) + 'px';
             document.getElementById('content_frame').style.visibility = "visible";
+       
         };
         window.onresize = window.onload;
+        $('#search_bar').autocomplete({
+            source: '@Url.Action("AutoComplete", "Browse")',
+                 minLength: 2,
+                 select: function(event, ui){
+                     alert('selectedStuff');
+                 }
+             });
     </script>
   </body>
 
