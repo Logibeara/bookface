@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "List a Book";
+}
+
+<script>
+
+    /* unhide popup and populate it with compose form */
+    var cancel = function () {
+        //unhide popup div
+        $('#overlay_parent').css('visibility', 'hidden');
+    };
+
+</script>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        <table>
+        <tbody>
+
+        <tr>
+        <td>
+
+        <form method="post" id="addBookForm" action='@Url.Action("AddBook", "Bookshelf")'>
+        <table>
+        <tbody>
+        <tr><td>Book Name:</td><td><textarea id="BookName" name="bookName" rows="1" cols="65"> test</textarea></td></tr>
+        <tr><td>ISBN:</td><td><textarea id="iSBN" name="iSBN" rows="1" cols="65" ></textarea></td></tr>
+        <tr><td>Author:</td><td><textarea id="author" name="author" rows="1" cols="65"></textarea></td></tr>
+        <tr><td>Description:</td><td><textarea id="description" name="description" rows="1" cols="65"></textarea></td></tr>
+        <tr><td>Course:</td><td><textarea id="course" name="course" rows="1" cols="65"></textarea></td></tr>
+        <tr><td>Price:</td><td><textarea id="price" name="price" rows="1" cols="65"></textarea></td></tr>
+        </tbody>
+        </table>
+
+        <input type="button" value="Cancel" id="cancelButton" onclick="cancel()"/>
+        </form>
+        </tbody>
+        </table>
+    </div>
+</body>
+</html>

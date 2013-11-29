@@ -38,22 +38,25 @@ namespace MvcApplication1.Controllers
             return View("~/Views/Bookshelf/PopupTest.cshtml");
         }
 
-        [HttpPost]
-        public ActionResult AddBookToBookShelf(Listing toAdd, int userID)
+        [HttpGet]
+        //[HttpPost]
+        //public ActionResult AddBook(Listing toAdd, int userID)
+        public ActionResult AddBook()
         {
-            UserProfile u = new UserProfile();
-            using (TestDbContext db = new TestDbContext())
-            {
-                u = (from a in db.UserProfiles
-                     where a.UserId == userID
-                     select a).First();
-                if (u != null)
-                {
-                    Listing listToAdd = new Listing();
+            //UserProfile u = new UserProfile();
+            //using (TestDbContext db = new TestDbContext())
+            //{
+            //    u = (from a in db.UserProfiles
+            //         where a.UserId == userID
+            //         select a).First();
+            //    if (u != null)
+            //    {
+            //        Listing listToAdd = new Listing();
 
-                }
-            }
-            return null;
+            //    }
+            //}
+            //return null;
+            return View("~/Views/Bookshelf/AddBook.cshtml");
         }
     }
 }

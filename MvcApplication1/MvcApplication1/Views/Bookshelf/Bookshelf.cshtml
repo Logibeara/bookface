@@ -1,8 +1,26 @@
 ﻿@{
     ViewBag.Title = "Bookshelf";
 }
+
+
+
 <script>
+    var addBook = function () {
+        $('#overlay_content').html('<progress max="100"></progress>');
+
+        //call funciton to grab html
+        $.get('@Url.Action("AddBook", "Bookshelf")', null, function (result) {
+            $('#overlay_content').html(result);
+        });
+
+        //unhide popup div
+        $('#overlay_parent').css('visibility', 'visible');
+    };
+
     $.get('@Url.Action("GetList","Bookshelf")', null, function (result) {
-        $("#content_frame").html(result);
+        $("#bookList").html(result);
     });
 </script>
+
+<input type="button" value="Add a book" onclick="addBook()" />
+<div style ="width:100%" id="bookList"></div>
