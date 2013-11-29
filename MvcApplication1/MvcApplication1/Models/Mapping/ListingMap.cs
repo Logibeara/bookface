@@ -16,9 +16,9 @@ namespace MvcApplication1.Models.Mapping
             this.Property(t => t.ListID).HasColumnName("ListID");
             this.Property(t => t.UserID).HasColumnName("UserID");
             this.Property(t => t.BookID).HasColumnName("BookID");
-            this.Property(t => t.BuyPrice).HasColumnName("BuyPrice");
-            this.Property(t => t.SellPrice).HasColumnName("SellPrice");
+            this.Property(t => t.Price).HasColumnName("Price");
             this.Property(t => t.ListDate).HasColumnName("ListDate");
+            this.Property(t => t.ListType).HasColumnName("ListType");
         }
     }
 }

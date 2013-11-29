@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcApplication1.Models;
+using MvcApplication1.Utils;
 
 namespace MvcApplication1.Controllers
 {
@@ -19,8 +20,15 @@ namespace MvcApplication1.Controllers
 
         public ActionResult GetList()
         {
-            Random random = new Random();
-            ViewBag.numBooks = random.Next(1, 30); ;
+            int[] IDs = { 1, 2, 3, 4, 5 };
+
+            List<Book> bookList = new List<Book>();
+            for (int i = 0; i < IDs.Length; i++)
+            {
+                bookList.Add(BookUtils.getBook(IDs[i]));
+            }
+
+            ViewData["BookList"] = bookList;
             return View("~/Views/Shared/BookList.cshtml");
         }
 
@@ -30,19 +38,22 @@ namespace MvcApplication1.Controllers
             return View("~/Views/Bookshelf/PopupTest.cshtml");
         }
 
-        //book details popup getter
-        public ActionResult BookDetails(MvcApplication1.Models.Book clickedBook)
+        [HttpPost]
+        public ActionResult AddBookToBookShelf(Listing toAdd, int userID)
         {
-            if (clickedBook.CourseID > 0)
+            UserProfile u = new UserProfile();
+            using (TestDbContext db = new TestDbContext())
             {
-                using (TestDbContext db = new TestDbContext())
+                u = (from a in db.UserProfiles
+                     where a.UserId == userID
+                     select a).First();
+                if (u != null)
                 {
-                    clickedBook.Course = db.Courses.Find(clickedBook.CourseID);
+                    Listing listToAdd = new Listing();
+
                 }
             }
-
-            ViewData["book"] = clickedBook;
-            return View("~/Views/Shared/BookDetails.cshtml");
+            return null;
         }
     }
 }
