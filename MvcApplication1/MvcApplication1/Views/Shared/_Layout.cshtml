@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <link href="@Url.Content("~/Content/themes//base/jquery-ui.css")" rel="stylesheet" type="text/css" />
     <title>@ViewBag.Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="generator" content="Google Web Designer 1.0.0.924">
@@ -278,7 +279,7 @@
     <script>
         // iFrame Sizing Code
         window.onload = function () {
-            document.getElementById('content_frame').style.width = (window.innerWidth - 421) + 'px';
+            document.getElementById('content_frame').style.width = (window.innerWidth - 221) + 'px';
             document.getElementById('content_frame').style.visibility = "visible";
        
         };
@@ -287,7 +288,7 @@
             source: '@Url.Action("AutoComplete", "Browse")',
                  minLength: 2,
                  select: function(event, ui){
-                     alert('selectedStuff');
+                     //We Could do cool stuff here, but this is still so cool
                  }
              });
     </script>

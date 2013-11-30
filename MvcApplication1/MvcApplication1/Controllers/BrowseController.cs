@@ -40,8 +40,14 @@ namespace MvcApplication1.Controllers
         {
             using(TestDbContext db = new TestDbContext())
             {
-               var returnArr = db.Books.Select(b => new {
-                   value = b.BookName
+                int courseNum;
+                bool success;
+                success = Int32.TryParse(term, out courseNum);
+               var returnArr = db.Books.Where(b => b.BookName.StartsWith(term) ||
+                   b.Course.CourseName.StartsWith(term) ||
+                   (success && courseNum == b.Course.CourseNumber) ||
+                   b.Author.StartsWith(term)).Select(b => new {
+                   value = b.BookName.Trim()
                 }).Take(5).ToArray();
                return this.Json(returnArr, JsonRequestBehavior.AllowGet);
             }
