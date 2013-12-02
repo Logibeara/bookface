@@ -9,7 +9,7 @@
         $('#overlay_content').html('<progress max="100"></progress>');
 
         //call funciton to grab html
-        $.get('@Url.Action("AddBook", "Bookshelf")', null, function (result) {
+        $.get('@Url.Action("AddBookDialog", "Bookshelf")', null, function (result) {
             $('#overlay_content').html(result);
         });
 
