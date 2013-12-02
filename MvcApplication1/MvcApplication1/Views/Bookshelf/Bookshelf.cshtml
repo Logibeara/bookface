@@ -6,17 +6,14 @@
 
 <script>
     var addBook = function () {
+        $('#overlay_parent').css('visibility', 'visible');
         $('#overlay_content').html('<progress max="100"></progress>');
-
         //call funciton to grab html
         $.get('@Url.Action("AddBookDialog", "Bookshelf")', null, function (result) {
             $('#overlay_content').html(result);
         });
-
-        //unhide popup div
-        $('#overlay_parent').css('visibility', 'visible');
     };
-
+    $("#bookList").html('<progress max="100"></progress>');
     $.get('@Url.Action("GetList","Bookshelf")', null, function (result) {
         $("#bookList").html(result);
     });
