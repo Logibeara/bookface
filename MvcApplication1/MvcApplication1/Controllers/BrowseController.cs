@@ -43,13 +43,28 @@ namespace MvcApplication1.Controllers
                 int courseNum;
                 bool success;
                 success = Int32.TryParse(term, out courseNum);
-               var returnArr = db.Books.Where(b => b.BookName.StartsWith(term) ||
-                   b.Course.CourseName.StartsWith(term) ||
-                   (success && courseNum == b.Course.CourseNumber) ||
-                   b.Author.StartsWith(term)).Select(b => new {
-                   value = b.BookName.Trim()
-                }).Take(5).ToArray();
+                var returnArr = db.Books.Where(b => b.BookName.StartsWith(term) ||
+                    b.Course.CourseName.StartsWith(term) ||
+                    (success && courseNum == b.Course.CourseNumber) ||
+                    b.Author.StartsWith(term)).Select(b => new
+                    {
+                        value = b.BookName.Trim()
+                    }).Take(5).ToArray();
                return this.Json(returnArr, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult Search(int courseNum = 0, string bookName = "",
+                                    string courseName = "", string author = "")
+        {
+            using(TestDbContext db = new TestDbContext())
+            {
+                List<Book> bookList = db.Books.Where(b => b.BookName.Equals(bookName) ||
+                       b.Course.CourseName.Equals(courseName) ||
+                       (courseNum == b.Course.CourseNumber) ||
+                       b.Author.Equals(author)).ToList();
+                       ViewData["BookList"] = bookList;
+                       return View("~/Views/Shared/BookList.cshtml");
             }
         }
     }

@@ -230,7 +230,7 @@
     </div>
     <div class="nav_bar_class" id="NavBar">
       <div id="Page_Title" class="page_title_class">@ViewBag.Title</div>
-      <img src="~/Images/mail.png" class="mail_image_class">
+      <input type="image" src="~/Images/mail.png" class="mail_image_class" onclick="location.href='@Url.Action("Message", "Message")'">
       <div id="search_control" class="search_control_class">
         <input type="text" id="search_bar" class="search_bar_class">
         <input type="image" src="~/Images/search-icon.png" id="search_button" class="search_button_class">
