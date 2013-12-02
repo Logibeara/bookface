@@ -58,5 +58,20 @@ namespace MvcApplication1.Controllers
             //return null;
             return View("~/Views/Bookshelf/AddBook.cshtml");
         }
+
+        //book details popup getter
+        public ActionResult BookDetails(MvcApplication1.Models.Book clickedBook)
+        {
+            if (clickedBook.CourseID > 0)
+            {
+                using (TestDbContext db = new TestDbContext())
+                {
+                    clickedBook.Course = db.Courses.Find(clickedBook.CourseID);
+                }
+            }
+
+            ViewData["book"] = clickedBook;
+            return View("~/Views/Shared/BookDetails.cshtml");
+        }
     }
 }
