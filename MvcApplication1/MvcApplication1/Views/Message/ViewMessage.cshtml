@@ -8,3 +8,9 @@
 <h2>ViewMessage</h2>
 <div id="messageData"><p>@m.Message1</p></div>
 <button id="close">Close</button>
+
+<script>
+    $('#close').click(function () {
+        $('#overlay_parent').css('visibility', 'hidden');
+    });
+</script>
