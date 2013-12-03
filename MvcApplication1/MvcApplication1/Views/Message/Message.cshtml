@@ -1,10 +1,14 @@
 ﻿@{
     ViewBag.Title = "Message";
+   
 }
 
 <h2>Message</h2>
 
 <script>
+    //prevent ajax caching
+    $.ajaxSetup({ cache: false });
+
     /* test funciton for incrementing a value by 2 for testing purposes */
     var myfunc = function () {
         $.get("@Url.Action("AddTwo","message",new{start=0})" + $("#num").text(), null, function (result) {
@@ -27,7 +31,9 @@
         $('#overlay_parent').css('visibility', 'visible');
     };
 
-    $.get('@Url.Action("GetReceivedMessages", "message", new { accountid = 996 })', null, function (result) {
+
+    
+    $.get('@Url.Action("GetReceivedMessages", "message")', null, function (result) {
         $("#messagelist").html(result);
     });
 

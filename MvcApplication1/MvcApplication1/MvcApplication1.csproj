@@ -213,6 +213,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\BookUtils.cs" />
     <Compile Include="Utils\CourseUtils.cs" />
+    <Compile Include="Utils\UserUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

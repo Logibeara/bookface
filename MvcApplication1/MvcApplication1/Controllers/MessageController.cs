@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcApplication1.Models;
+using MvcApplication1.Utils;
 
 namespace MvcApplication1.Controllers
 {
@@ -20,13 +21,16 @@ namespace MvcApplication1.Controllers
         //get recieved messages for specified user  
         //GET: /
         [HttpGet]
-        public ActionResult GetReceivedMessages(int accountid)
+        public ActionResult GetReceivedMessages()
         {
             List<Message> msgList;
-
+            string accountname = User.Identity.Name;
+            
             //get list of messages with account id as 
             using (TestDbContext db = new TestDbContext())
             {
+
+                int accountid = UserUtils.UserNametoID(accountname);
 
                 IQueryable<Message> messages = from m in db.Messages
                                                orderby m.SendDate
@@ -55,7 +59,11 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult Send(string recipient = "no recipient", string sender = "no sender", String subject = "no subject", String message = "empty message")
         {
-            //convert names to strings?
+            //convert recipient name to id
+            int recipientid = UserUtils.UserNametoID(recipient);
+            string accountname = User.Identity.Name;
+            int senderid = UserUtils.UserNametoID(accountname);
+
 
             //create a new message object
 
@@ -65,10 +73,9 @@ namespace MvcApplication1.Controllers
                 db.Messages.Add(new Message{
                     IsRead = false,
                     Message1 = message,
-                    MessageID = 100,
-                    RecipientID = 996,
+                    RecipientID = recipientid,
                     SendDate = DateTime.Now,
-                    SenderID = 100,
+                    SenderID = senderid,
                     SenderName = sender}
                     );
 

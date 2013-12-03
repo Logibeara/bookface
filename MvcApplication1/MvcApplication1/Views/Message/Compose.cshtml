@@ -21,12 +21,10 @@
             $('#CloseDiv').click(function () {
                 $('#overlay_parent').css('visibility', 'hidden');
                 if ($("#messagelist").length) {//see if its there
-                    $.get('@Url.Action("GetReceivedMessages", "message", new { accountid = 996 })', null, function (result) {
-
-                        $("#messagelist").html(result);
-
-                    });
-                }
+                    $.get('@Url.Action("GetReceivedMessages", "message")', null, function (result) {
+                    $("#messagelist").html(result);
+                });
+            }
             });
         });
     };
