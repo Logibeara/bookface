@@ -3,7 +3,15 @@
    
 }
 
-<h2>Message</h2>
+
+<h2 id="navTitle">Received Messages</h2>
+
+
+<!--input type="button" value="Compose" onclick="compose()" /-->
+<input type="button" id="msgSentNav" name="msgSentNav" value="Sent Messages" />
+<input type="button" id="msgRecNav" name="msgRecNav"   value="Received Messages" />
+
+<div style ="width:100%" id="messagelist"></div>
 
 <script>
     //prevent ajax caching
@@ -23,7 +31,7 @@
         $('#overlay_content').html('<progress max="100"></progress>');
 
         //call funciton to grab html
-        $.get('@Url.Action("Compose", "Message")', null, function (result) {
+        $.get('@Url.Action("Compose", "Message", new { recipient="Logibeara" })', null, function (result) {
             $('#overlay_content').html(result);
         });
 
@@ -32,12 +40,32 @@
     };
 
 
-    
-    $.get('@Url.Action("GetReceivedMessages", "message")', null, function (result) {
-        $("#messagelist").html(result);
+    var messagesRecieved = function () {
+
+        $.get('@Url.Action("GetReceivedMessages", "message")', null, function (result) {
+            $("#messagelist").html(result);
+            
+            $("#navTitle").text("Received Messages");
+        });
+    };
+
+    var messagesSent = function () {
+        $.get('@Url.Action("GetSentMessages", "message")', null, function (result) {
+            $("#messagelist").html(result);
+            $("#navTitle").text("Sent Messages");
+        });
+    };
+
+    $(document).ready(function () {
+
+        $("input#msgRecNav").click(function () {
+            messagesRecieved();
+        });
+
+        $("input#msgSentNav").click(function () {
+            messagesSent();
+        });
+
+        messagesRecieved();
     });
-
 </script>
-
-<input type="button" value="Compose" onclick="compose()" />
-<div style ="width:100%" id="messagelist"></div>

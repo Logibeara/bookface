@@ -2,7 +2,10 @@
 @{
     Layout = null;
     ViewBag.Title = "Message";
-}
+    var recipient = ViewData["Recipient"] as string;
+    var sender = User.Identity.Name;
+} 
+
 
 <script>
 
@@ -20,11 +23,9 @@
             $('#overlay_content').html(result + '<br><button id="CloseDiv">Close</button>');
             $('#CloseDiv').click(function () {
                 $('#overlay_parent').css('visibility', 'hidden');
-                if ($("#messagelist").length) {//see if its there
-                    $.get('@Url.Action("GetReceivedMessages", "message")', null, function (result) {
-                    $("#messagelist").html(result);
-                });
-            }
+                if (messagesSent) {//see if its there
+                    messagesSent();
+                }
             });
         });
     };
@@ -49,9 +50,8 @@
         <form method="post" id="messageForm" action='@Url.Action("Send", "Message")'>
         <table>
         <tbody>
-        <tr><td>Send To:</td><td><textarea id="recipient" name="recipient" rows="1" cols="65"> test</textarea></td></tr>
-        <tr><td>From:</td><td><textarea id="sender" name="sender" rows="1" cols="65" ></textarea></td></tr>
-        <tr><td>Subject:</td><td><textarea id="subject" name="subject" rows="1" cols="65"></textarea></td></tr>
+        <tr><td>Send To:</td><td><textarea id="recipient" name="recipient" rows="1" cols="65" readonly>@recipient</textarea></td></tr>
+        <tr><td>From:</td><td><textarea id="sender" name="sender" rows="1" cols="65" readonly>@sender</textarea></td></tr>
         <tr><td>Message:</td> </tr>
         </tbody>
         </table>

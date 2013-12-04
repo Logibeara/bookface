@@ -18,6 +18,34 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
+        //get sent messages for specified user  
+        //GET: /
+        [HttpGet]
+        public ActionResult GetSentMessages()
+        {
+            List<Message> msgList;
+            string accountname = User.Identity.Name;
+
+            //get list of messages with account id as 
+            using (TestDbContext db = new TestDbContext())
+            {
+
+                int accountid = UserUtils.UserNametoID(accountname);
+
+                IQueryable<Message> messages = from m in db.Messages
+                                               orderby m.SendDate descending
+                                               where m.SenderID == accountid
+                                               select m;
+
+                msgList = messages.ToList<Message>();
+
+            }
+
+            ViewData["Messages"] = msgList;
+
+            return View("~/Views/Message/MessageList.cshtml");
+        }
+
         //get recieved messages for specified user  
         //GET: /
         [HttpGet]
@@ -33,7 +61,7 @@ namespace MvcApplication1.Controllers
                 int accountid = UserUtils.UserNametoID(accountname);
 
                 IQueryable<Message> messages = from m in db.Messages
-                                               orderby m.SendDate
+                                               orderby m.SendDate descending
                                                where m.RecipientID == accountid
                                                select m;
 
@@ -49,15 +77,17 @@ namespace MvcApplication1.Controllers
         //grab web form for sending a message  
         //GET: /
         [HttpGet]
-        public ActionResult Compose()
+        public ActionResult Compose(string recipient = "no recipient")
         {
+            ViewData["Recipient"] = recipient;
+            
             return View("~/Views/Message/Compose.cshtml");
         }
 
         //send a message through a post  
         //GET: /
         [HttpPost]
-        public ActionResult Send(string recipient = "no recipient", string sender = "no sender", String subject = "no subject", String message = "empty message")
+        public ActionResult Send(string recipient = "no recipient", string sender = "no sender", String message = "empty message")
         {
             //convert recipient name to id
             int recipientid = UserUtils.UserNametoID(recipient);
@@ -103,8 +133,18 @@ namespace MvcApplication1.Controllers
                 myMessage = messages.ToList<Message>().First<Message>();
 
             }
-
+            string replyTarget = "";
             ViewData["currentMessage"] = myMessage;
+            if(String.Compare(User.Identity.Name,myMessage.SenderID.Value.ToString(),true) == 0)
+            {
+                replyTarget = UserUtils.UserIDtoName(myMessage.RecipientID.Value);
+            }
+            else
+            {
+                replyTarget = myMessage.SenderName;
+            }
+
+            ViewData["replyTarget"] = replyTarget; 
             return View("~/Views/Message/ViewMessage.cshtml");
         }
         //
