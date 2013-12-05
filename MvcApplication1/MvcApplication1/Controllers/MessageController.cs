@@ -132,19 +132,28 @@ namespace MvcApplication1.Controllers
 
                 myMessage = messages.ToList<Message>().First<Message>();
 
-            }
-            string replyTarget = "";
-            ViewData["currentMessage"] = myMessage;
-            if(String.Compare(User.Identity.Name,myMessage.SenderID.Value.ToString(),true) == 0)
-            {
-                replyTarget = UserUtils.UserIDtoName(myMessage.RecipientID.Value);
-            }
-            else
-            {
-                replyTarget = myMessage.SenderName;
-            }
 
-            ViewData["replyTarget"] = replyTarget; 
+                string replyTarget = "";
+                ViewData["currentMessage"] = myMessage;
+                string recipient = UserUtils.UserIDtoName(myMessage.RecipientID.Value); ;
+                string sender = UserUtils.UserIDtoName(myMessage.SenderID.Value);
+                int myID = UserUtils.UserNametoID(User.Identity.Name);
+                if (myID == myMessage.RecipientID)
+                {
+                    replyTarget = sender;
+
+                    //mark message as read
+                    myMessage.IsRead = true;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    replyTarget = recipient;
+                }
+                ViewData["replyTarget"] = replyTarget; 
+          
+            }
+          
             return View("~/Views/Message/ViewMessage.cshtml");
         }
         //

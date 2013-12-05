@@ -275,6 +275,7 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Bookface.png" />
     <Content Include="Images\mail.png" />
+    <Content Include="Images\mailred.png" />
     <Content Include="Images\placeholder.jpg" />
     <Content Include="Images\search-icon.png" />
     <Content Include="Scripts\jquery-1.8.2.js" />
