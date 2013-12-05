@@ -56,16 +56,21 @@ namespace MvcApplication1.Controllers
                     Listing listToAdd = new Listing();
                     //adduser to listing
                     //see if book exists in database
-                    Book bookChecked = db.Books.Where(b => b.BookName.Equals(bookToCheck.BookName) &&
-               b.Author.Equals(bookToCheck.Author)).First();
-                    if (bookChecked != null)
+                    List<Book> bookList = (List<Book>)db.Books.Where(b => b.BookName.Equals(bookToCheck.BookName) &&
+               b.Author.Equals(bookToCheck.Author));
+                    if (bookList.Count > 0)
                     {
-                        listToAdd.BookID = bookChecked.BookID;
+                        Book bookChecked = bookList.First();
+                        if (bookChecked != null && bookChecked.BookID != null)
+                        {
+                            listToAdd.BookID = bookChecked.BookID;
+                        }
                     }
                     else
                     {
                         db.Books.Add(bookToCheck);
-                        bookChecked = db.Books.Where(b => b.BookName.Equals(bookToCheck.BookName) &&
+                        db.SaveChanges();
+                        Book bookChecked = db.Books.Where(b => b.BookName.Equals(bookToCheck.BookName) &&
                b.Author.Equals(bookToCheck.Author)).First();
                         listToAdd.BookID = bookChecked.BookID;
                     }
@@ -77,6 +82,7 @@ namespace MvcApplication1.Controllers
                     listToAdd.ListType = 0;
                     //add the liting to the database
                     db.Listings.Add(listToAdd);
+                    db.SaveChanges();
                 }
             }
             return Content("Book Added");
