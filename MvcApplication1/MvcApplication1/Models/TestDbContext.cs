@@ -22,9 +22,7 @@ namespace MvcApplication1.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<StartDb> StartDbs { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
-        public DbSet<webpages_Membership> webpages_Membership { get; set; }
-        public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
-        public DbSet<webpages_Roles> webpages_Roles { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -33,10 +31,7 @@ namespace MvcApplication1.Models
             modelBuilder.Configurations.Add(new ListingMap());
             modelBuilder.Configurations.Add(new MessageMap());
             modelBuilder.Configurations.Add(new StartDbMap());
-            modelBuilder.Configurations.Add(new UserProfileMap());
-            modelBuilder.Configurations.Add(new webpages_MembershipMap());
-            modelBuilder.Configurations.Add(new webpages_OAuthMembershipMap());
-            modelBuilder.Configurations.Add(new webpages_RolesMap());
+
         }
     }
 }

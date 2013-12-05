@@ -37,7 +37,7 @@ namespace MvcApplication1.Utils
                 if (listing != null)
                 {
                     //due to lazy loading, resolve all foreign key references
-                    listing.UserProfile = listing.UserProfile;
+                    //listing.UserProfile = listing.UserProfile;
                     listing.Book = listing.Book;
                     listing.Book.Course = listing.Book.Course;
                 }
@@ -54,7 +54,7 @@ namespace MvcApplication1.Utils
         {
             db.Listings.Add(new Listing
             {
-                UserID = 1,
+                UserID = UserUtils.UserNametoID("logibeara"),
                 BookID = 1,
                 Price = (decimal)10.00,
                 ListType = 0,
