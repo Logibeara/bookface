@@ -11,6 +11,20 @@
         $('#overlay_parent').css('visibility', 'hidden');
     };
 
+    var addListing = function () {
+        //send linsting data to bookshelf controler
+        //reload book shelf list after listing is added
+        $.post('Bookshelf/AddBook', $('#addBookForm').serialize(), function (result) {
+            $('#overlay_content').html(result + '<br><button id="CloseDiv">Close</button>');
+            $('#CloseDiv').click(function () {
+                $('#overlay_parent').css('visibility', 'hidden');
+                if (bookAdded) {//see if its there
+                    bookAdded();
+                }
+            });
+        });
+    }
+
 </script>
 
 
@@ -35,12 +49,12 @@
         <tr><td>Book Name:</td><td><textarea id="BookName" name="bookName" rows="1" cols="65"> test</textarea></td></tr>
         <tr><td>ISBN:</td><td><textarea id="iSBN" name="iSBN" rows="1" cols="65" ></textarea></td></tr>
         <tr><td>Author:</td><td><textarea id="author" name="author" rows="1" cols="65"></textarea></td></tr>
-        <tr><td>Description:</td><td><textarea id="description" name="description" rows="1" cols="65"></textarea></td></tr>
         <tr><td>Course:</td><td><textarea id="course" name="course" rows="1" cols="65"></textarea></td></tr>
         <tr><td>Price:</td><td><textarea id="price" name="price" rows="1" cols="65"></textarea></td></tr>
         </tbody>
         </table>
 
+        <input type="button" value="Add Listing" id="addListingButton" onclick="addListing()" />
         <input type="button" value="Cancel" id="cancelButton" onclick="cancel()"/>
         </form>
         </tbody>
