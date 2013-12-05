@@ -56,8 +56,8 @@ namespace MvcApplication1.Utils
             {
                 UserID = 1,
                 BookID = 1,
-                BuyPrice = (decimal)10.00,
-                SellPrice = (decimal)15.00,
+                Price = (decimal)10.00,
+                ListType = 0,
                 ListDate = System.DateTime.Now
             });
 
@@ -65,8 +65,8 @@ namespace MvcApplication1.Utils
             {
                 UserID = 2,
                 BookID = 5,
-                BuyPrice = (decimal)5.00,
-                SellPrice = (decimal)150.00,
+                Price = (decimal)5.00,
+                ListType = 0,
                 ListDate = System.DateTime.Now
             });
 
@@ -74,8 +74,8 @@ namespace MvcApplication1.Utils
             {
                 UserID = 2,
                 BookID = 3,
-                BuyPrice = (decimal)30.00,
-                SellPrice = (decimal)0.00,
+                Price = (decimal)30.00,
+                ListType = 0,
                 ListDate = System.DateTime.Now
             });
 
@@ -83,8 +83,8 @@ namespace MvcApplication1.Utils
             {
                 UserID = 1,
                 BookID = 3,
-                BuyPrice = (decimal)30.00,
-                SellPrice = (decimal)5.00,
+                Price = (decimal)30.00,
+                ListType = 0,
                 ListDate = System.DateTime.Now
             });
 
@@ -92,8 +92,8 @@ namespace MvcApplication1.Utils
             {
                 UserID = 1,
                 BookID = 2,
-                BuyPrice = (decimal)15.00,
-                SellPrice = (decimal)20.00,
+                Price = (decimal)15.00,
+                ListType = 0,
                 ListDate = System.DateTime.Now
             });
             db.SaveChanges();
