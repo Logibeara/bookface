@@ -21,15 +21,17 @@
                 <tr /><tr /><tr /><tr /><tr /><tr /><tr />
                 <tr><td>Title: </td><td>@book.BookName</td></tr>
                 <tr><td>Author: </td><td>@book.Author</td></tr>
-                <tr><td>Description: </td><td>@book.Description</td></tr>
+                <tr><td>Description: </td><td>desc not impl</td></tr>
                 <tr><td>ISBN: </td><td>@book.ISBN</td></tr>
                 <tr /><tr /><tr /><tr />
                 <tr><td>Course: </td><td>@book.Course.abbrev()</td></tr>
-                <tr><td>Instructor: </td><td>@book.Course.Instructor</td></tr>
+                <tr><td>Instructor: </td><td>Instr not impl</td></tr>
             </tbody>
         </table>
 
         <button id="close">Close</button>
+        <button id="reply">Message Seller</button>
+
     </div>
 </body>
 </html>
@@ -38,4 +40,10 @@
     $('#close').click(function () {
         $('#overlay_parent').css('visibility', 'hidden');
     });
+    $('#reply').click(function () {
+        $.get('@Url.Action("Compose", "Message", new { recipient=@seller })', null, function (result) {
+                $('#overlay_content').html(result);
+
+            });
+        });
 </script>

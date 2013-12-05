@@ -122,6 +122,7 @@ namespace MvcApplication1.Controllers
                     bookToCheck.BookName = bookName;
                     bookToCheck.ISBN = iSBN;
                     bookToCheck.Author = author;
+                    
                     //TODO set the fields of book accoring to the data in the dialog
                     Listing listToAdd = new Listing();
 
@@ -142,6 +143,13 @@ namespace MvcApplication1.Controllers
                     }
                     else
                     {
+                        Course course = new Course();
+                        //course.CourseName = bookToCheck.Course
+                        bookToCheck.Course = course;
+                        course.CourseName = "not implemented";
+                        course.CourseNumber = 123;
+ 
+                       // db.Courses.Add(
                         db.Books.Add(bookToCheck);
                         db.SaveChanges();
                         myBook = (from b in db.Books
@@ -174,17 +182,35 @@ namespace MvcApplication1.Controllers
         //listing details popup getter
         public ActionResult ListingDetails(string seller, decimal? price, MvcApplication1.Models.Book clickedBook)
         {
-            if (clickedBook.CourseID > 0)
+            //if (clickedBook.CourseID > 0)
+            //{
+            //    using (TestDbContext db = new TestDbContext())
+            //    {
+            //        clickedBook.Course = db.Courses.Find(clickedBook.CourseID);
+            //    }
+            //}
+
+            //currently seller is being passed as an ID, this will probably change
+
+
+            //ViewData["seller"] = (seller == null) ? "" : seller;
+            ViewData["seller"] = UserUtils.UserIDtoName(Convert.ToInt32(seller));
+            ViewData["price"] = (price == null) ? 0m : price;
+            Book resolvedBook = null;
+            using (TestDbContext db = new TestDbContext())
             {
-                using (TestDbContext db = new TestDbContext())
+                var books = (from b in db.Books
+                             where b.BookID == clickedBook.BookID
+                             select b).ToList();
+                if(books.Count() > 0)
                 {
-                    clickedBook.Course = db.Courses.Find(clickedBook.CourseID);
+                    resolvedBook = books[0];
+
+                    //LAZY LOAD COURSE
+                    resolvedBook.Course = resolvedBook.Course;
                 }
             }
-
-            ViewData["seller"] = (seller == null) ? "" : seller;
-            ViewData["price"] = (price == null) ? 0m : price;
-            ViewData["book"] = clickedBook;
+            ViewData["book"] = resolvedBook;
             return View("~/Views/Shared/ListingDetails.cshtml");
         }
     }

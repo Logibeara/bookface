@@ -24,16 +24,49 @@ namespace MvcApplication1.Controllers
         public ActionResult GetBookList()
         {
             //test list of IDs to populate the list based on test book table
-            int[] IDs = { 1, 2, 3, 4, 5, 6 };
+            //int[] IDs = { 1, 2, 3, 4, 5, 6 };
 
-            List<Book> bookList = new List<Book>();
-            for(int i = 0; i < IDs.Length; i++)
+            //List<Book> bookList = new List<Book>();
+            //for(int i = 0; i < IDs.Length; i++)
+            //{
+            //    bookList.Add(BookUtils.getBook(IDs[i]));
+            //}
+
+            //ViewData["BookList"] = bookList;
+            //ViewData["isListing"] = true;
+            //return View("~/Views/Shared/BookList.cshtml");
+
+
+
+            List<Book> bookList;
+            using (TestDbContext db = new TestDbContext())
             {
-                bookList.Add(BookUtils.getBook(IDs[i]));
+
+                IQueryable<Book> books = from b in db.Books
+         //                                      orderby b.BookName
+                                               select b;
+
+                bookList = books.ToList<Book>();
+                foreach (var b in bookList)
+                {
+                    if (b != null)
+                    {
+                        //due to lazy loading, resolve all foreign key references
+                        //listing.UserProfile = listing.UserProfile;
+                        b.Course = b.Course;
+                        b.Course.Books = b.Course.Books;
+                    }
+                    else
+                    {
+                        //no listing with the given ID, report error?
+                    }
+                }
             }
+
 
             ViewData["BookList"] = bookList;
             ViewData["isListing"] = true;
+
             return View("~/Views/Shared/BookList.cshtml");
         }
 
@@ -70,8 +103,12 @@ namespace MvcApplication1.Controllers
         }
 
         //book details popup getter
-        public ActionResult BookDetails(MvcApplication1.Models.Book clickedBook)
+        public ActionResult BookDetails(MvcApplication1.Models.Book clickedBook = null)//)
         {
+            if (clickedBook == null)
+            {
+                return Content("error");
+            }
             if (clickedBook.CourseID > 0)
             {
                 using (TestDbContext db = new TestDbContext())
@@ -80,7 +117,33 @@ namespace MvcApplication1.Controllers
                 }
             }
 
-            ViewData["book"] = clickedBook;
+            
+            //get available listings for book
+
+            Book resolvedBook = null;
+
+            using (TestDbContext db = new TestDbContext())
+            {
+
+                int accountid = UserUtils.UserNametoID(User.Identity.Name);
+
+                IQueryable<Book> books = from b in db.Books 
+                                               where b.BookID == clickedBook.BookID
+                                               select b;
+                if (books.Count() > 0)
+                {
+                    resolvedBook = books.First();
+                    //probably more loading here than needed
+                    resolvedBook.Course = resolvedBook.Course;
+                    resolvedBook.Course.Books = resolvedBook.Course.Books;
+                    resolvedBook.Listings = resolvedBook.Listings;
+                }
+                
+            }
+            
+            
+            //pass back available listings
+            ViewData["book"] = resolvedBook;
             return View("~/Views/Shared/BookDetails.cshtml");
         }
     }
