@@ -18,8 +18,9 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
-        public ActionResult GetList()
+        public ActionResult GetBookshelf()
         {
+            /*
             //TODO get user's listings instead of hardcoded listing IDs
             int[] IDs = { 1, 2, 3, 4, 5 };
 
@@ -28,8 +29,60 @@ namespace MvcApplication1.Controllers
             {
                 list.Add(ListingUtils.getListing(IDs[i]));
             }
+            */
+            List<Listing> listingList;
 
-            ViewData["ListingList"] = list;
+            using (TestDbContext db = new TestDbContext())
+            {
+
+                int accountid = UserUtils.UserNametoID(User.Identity.Name);
+
+                IQueryable<Listing> listings = from l in db.Listings
+                                               orderby l.ListDate descending
+                                               where l.UserID == accountid
+                                               where l.ListType == 0 //0 is books to sell
+                                               select l;
+
+               listingList = listings.ToList<Listing>();
+               foreach (var l in listingList)
+               {
+                   if (l != null)
+                   {
+                       //due to lazy loading, resolve all foreign key references
+                       //listing.UserProfile = listing.UserProfile;
+                       l.Book = l.Book;
+                       l.Book.Course = l.Book.Course;
+                   }
+                   else
+                   {
+                       //no listing with the given ID, report error?
+                   }
+               }
+            }
+
+            
+            ViewData["ListingList"] = listingList;
+
+            return View("~/Views/Shared/ListingList.cshtml");
+        }
+
+        public ActionResult GetWishlist()
+        {
+            using (TestDbContext db = new TestDbContext())
+            {
+
+                int accountid = UserUtils.UserNametoID(User.Identity.Name);
+
+                IQueryable<Listing> listings = from l in db.Listings
+                                               orderby l.ListDate descending
+                                               where l.UserID == accountid
+                                               where l.ListType == 0 //1 is books to buy
+                                               select l;
+
+                ViewData["ListingList"] = listings.ToList<Listing>();
+
+            }
+
             return View("~/Views/Shared/ListingList.cshtml");
         }
 

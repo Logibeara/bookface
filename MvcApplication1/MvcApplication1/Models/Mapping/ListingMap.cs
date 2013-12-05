@@ -24,9 +24,9 @@ namespace MvcApplication1.Models.Mapping
             this.HasRequired(t => t.Book)
                 .WithMany(t => t.Listings)
                 .HasForeignKey(d => d.BookID);
-            this.HasRequired(t => t.UserProfile)
-                .WithMany(t => t.Listings)
-                .HasForeignKey(d => d.UserID);
+            //this.HasRequired(t => t.UserProfile)
+               // .WithMany(t => t.Listings)
+                //.HasForeignKey(d => d.UserID);
 
         }
     }

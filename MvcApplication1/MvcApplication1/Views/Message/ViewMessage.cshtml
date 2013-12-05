@@ -21,9 +21,7 @@
     $('#reply').click(function () {
         $.get('@Url.Action("Compose", "Message", new { recipient=@replyTarget })', null, function (result) {
             $('#overlay_content').html(result);
-            if (messagesReceived) {//see if its there
-                messagesReceived();
-            }
+
         });
     });
 

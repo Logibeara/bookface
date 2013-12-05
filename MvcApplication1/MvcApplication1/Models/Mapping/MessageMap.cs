@@ -14,6 +14,9 @@ namespace MvcApplication1.Models.Mapping
             this.Property(t => t.Message1)
                 .IsRequired();
 
+            this.Property(t => t.SenderName)
+                .HasMaxLength(50);
+
             // Table & Column Mappings
             this.ToTable("Message");
             this.Property(t => t.MessageID).HasColumnName("MessageID");

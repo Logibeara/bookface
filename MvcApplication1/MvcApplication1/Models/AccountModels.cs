@@ -18,20 +18,18 @@ namespace MvcApplication1.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
 
-    //[Table("UserProfile")]
-    //public class UserProfile
-    //{
-    //    public UserProfile()
-    //    {
-    //        this.Listings = new List<Listing>();
-    //    }
+    [Table("UserProfile")]
+    public class UserProfile
+    {
+        public UserProfile()
+        {
+        }
 
-    //    [Key]
-    //    [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-    //    public int UserId { get; set; }
-    //    public string UserName { get; set; }
-    //    public virtual ICollection<Listing> Listings { get; set; }
-    //}
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+    }
 
     public class RegisterExternalLoginModel
     {
