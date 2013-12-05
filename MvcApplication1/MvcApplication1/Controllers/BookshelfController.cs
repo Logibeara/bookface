@@ -43,24 +43,24 @@ namespace MvcApplication1.Controllers
                                                where l.ListType == 0 //0 is books to sell
                                                select l;
 
-               listingList = listings.ToList<Listing>();
-               foreach (var l in listingList)
-               {
-                   if (l != null)
-                   {
-                       //due to lazy loading, resolve all foreign key references
-                       //listing.UserProfile = listing.UserProfile;
-                       l.Book = l.Book;
-                       l.Book.Course = l.Book.Course;
-                   }
-                   else
-                   {
-                       //no listing with the given ID, report error?
-                   }
-               }
+                listingList = listings.ToList<Listing>();
+                foreach (var l in listingList)
+                {
+                    if (l != null)
+                    {
+                        //due to lazy loading, resolve all foreign key references
+                        //listing.UserProfile = listing.UserProfile;
+                        l.Book = l.Book;
+                        l.Book.Course = l.Book.Course;
+                    }
+                    else
+                    {
+                        //no listing with the given ID, report error?
+                    }
+                }
             }
 
-            
+
             ViewData["ListingList"] = listingList;
 
             return View("~/Views/Shared/ListingList.cshtml");
@@ -107,30 +107,37 @@ namespace MvcApplication1.Controllers
                     bookToCheck.Author = author;
                     //TODO set the fields of book accoring to the data in the dialog
                     Listing listToAdd = new Listing();
+
+                    listToAdd.UserID = UserUtils.UserNametoID(user);
                     //adduser to listing
                     //see if book exists in database
-                    List<Book> bookList = (List<Book>)db.Books.Where(b => b.BookName.Equals(bookToCheck.BookName) &&
-               b.Author.Equals(bookToCheck.Author));
-                    if (bookList.Count > 0)
+                    //Book bookChecked = db.Books.Where(b => b.BookName.Equals(bookToCheck.BookName) && b.Author.Equals(bookToCheck.Author)).First();
+                    var myBook = (from b in db.Books
+                                 where b.BookName == bookName
+                                 where b.Author == author
+                                 select b).ToList();
+                    if (myBook.Count > 0)
                     {
-                        Book bookChecked = bookList.First();
-                        if (bookChecked != null && bookChecked.BookID != null)
+                        if (myBook[0] != null && myBook[0].BookID != null)
                         {
-                            listToAdd.BookID = bookChecked.BookID;
+                            listToAdd.BookID = myBook[0].BookID;
                         }
                     }
                     else
                     {
                         db.Books.Add(bookToCheck);
                         db.SaveChanges();
-                        Book bookChecked = db.Books.Where(b => b.BookName.Equals(bookToCheck.BookName) &&
-               b.Author.Equals(bookToCheck.Author)).First();
-                        listToAdd.BookID = bookChecked.BookID;
+                        myBook = (from b in db.Books
+                                  where b.BookName == bookName
+                                  where b.Author == author
+                                  select b).ToList();
+                        listToAdd.BookID = myBook[0].BookID;
                     }
                     //ifnot add the book to the database
                     //add the bookID to the Listing
                     //add the Listing date to the Listing object
                     listToAdd.ListDate = DateTime.Now;
+                    listToAdd.Price = Convert.ToDecimal(price);
                     //set list type to 0
                     listToAdd.ListType = 0;
                     //add the liting to the database

@@ -18,8 +18,8 @@
             $('#overlay_content').html(result + '<br><button id="CloseDiv">Close</button>');
             $('#CloseDiv').click(function () {
                 $('#overlay_parent').css('visibility', 'hidden');
-                if (bookAdded) {//see if its there
-                    bookAdded();
+                if (loadBookList) {//see if its there
+                    loadBookList();
                 }
             });
         });

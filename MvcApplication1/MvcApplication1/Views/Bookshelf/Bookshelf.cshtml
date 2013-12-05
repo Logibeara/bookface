@@ -14,10 +14,14 @@
             $('#overlay_content').html(result);
         });
     };
-    $("#bookList").html('<progress max="100"></progress>');
-    $.get('@Url.Action("GetBookshelf","Bookshelf")', null, function (result) {
-        $("#bookList").html(result);
-    });
+    var loadBookList = function () {
+        $("#bookList").html('<progress max="100"></progress>');
+        $.get('@Url.Action("GetBookshelf","Bookshelf")', null, function (result) {
+            $("#bookList").html(result);
+
+        });
+    };
+    loadBookList();
 </script>
 
 <input type="button" value="Add a book" onclick="addBook()" />
