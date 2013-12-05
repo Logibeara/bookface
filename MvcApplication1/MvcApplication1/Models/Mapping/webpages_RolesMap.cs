@@ -20,6 +20,16 @@ namespace MvcApplication1.Models.Mapping
             this.Property(t => t.RoleId).HasColumnName("RoleId");
             this.Property(t => t.RoleName).HasColumnName("RoleName");
 
+            // Relationships
+            this.HasMany(t => t.UserProfiles)
+                .WithMany(t => t.webpages_Roles)
+                .Map(m =>
+                    {
+                        m.ToTable("webpages_UsersInRoles");
+                        m.MapLeftKey("RoleId");
+                        m.MapRightKey("UserId");
+                    });
+
 
         }
     }
