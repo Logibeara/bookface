@@ -5,32 +5,53 @@
     Layout = null;
     var i = 0;
     var messageList = ViewData["Messages"] as List<Message>;
-} 
 
+    
+    
+} 
+<table class="list_box_table">
+  
 @{foreach( Message m in messageList) {
+
+       string truncatedMessage = m.Message1;
+       if (truncatedMessage.Count() > 30)
+       {
+           truncatedMessage = truncatedMessage.Substring(0,30);
+           if (truncatedMessage.Contains('\n'))
+           {
+               truncatedMessage = truncatedMessage.Split('\n')[0];
+           }
+       }
+       string mailIcon = "";
+       if(m.IsRead == true)
+       {
+           mailIcon = "/Images/mail.png";
+       }   
+       else
+       {
+           mailIcon = "/Images/mailred.png";
+       
+       } 
       
-<div class="list_box_class" @Html.Raw(String.Format("id=\"{0}\"", m.MessageID))>
-    <table class="list_box_table">
-   		<tr>
-        <td style="width:50px">
-      		<img class="thumbnail" src="~/Images/heroAccent.png">
+      
+   		<tr  @Html.Raw(String.Format("id=\"{0}\"", m.MessageID)) class="list_box_class" >
+        <td> 
+        <img class="msgthumbnail" src="@mailIcon">
    		</td>
-        <td style="width:20px" id="Sender" class="sender">
-            @m.SenderName
+
+        <td  id="Sender" class="sender">
+            From: @m.SenderName
         </td>
-        <td style="width:100px" id="TruncatedMessage" class="truncatedmessage">
-        	@m.Message1
+             
+        <td id="TruncatedMessage" class="truncatedmessage" >
+        	@truncatedMessage
         </td>
-               
-        <td style="width:50px" id="IsRead" class="isread">
-            @m.IsRead
-        </td>
-        <td style="width:50px"  id="SendDate" class="senddate">
+             
+        <td id="SendDate" class="senddate">
         	@m.SendDate
         </td>
         </tr>
-   </table>
-</div>
+
 <script>
     $(@Html.Raw(String.Format("'#{0}'", m.MessageID))).mousedown(function (event) {
         switch (event.which) {
@@ -55,3 +76,5 @@
 </script>
   }
 }
+
+</table>

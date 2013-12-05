@@ -160,11 +160,23 @@
         text-align: center;
         
       }
+        .msgthumbnail {
+        width: 100%;
+        height: 85%; 
+        vertical-align: middle;
+        text-align: center;
+        
+        }
+      .viewmessage {
+        
+      -ms-word-wrap: break-word;
+      white-space: pre-line; 
+      }
       .list_box_table{
       text-align: left;
       vertical-align: middle;
       height: 100%;
-      width: 100%;
+      width:auto;
       }
       .title{
       font-size: 48px;
@@ -181,6 +193,22 @@
       }
       .semester{
       font-size: 24px;
+      }
+      .sender{
+      width:25%;
+      font-size: 24px;
+      text-align: left;
+      font-weight: bold;
+      }
+      .senddate{
+      width:25%;
+      font-size: 24px;
+      }
+      .truncatedmessage{
+      width:25%;
+      font-size: 24px;
+      -ms-word-wrap: break-word;
+      white-space: pre-line; 
       }
       .overlay {
           width: 100%;
@@ -208,6 +236,11 @@
           margin: 0 auto;
           vertical-align: middle;
       }
+      .message {
+      -ms-word-wrap: break-word;
+      white-space: pre-line;    
+      }
+
     </style>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
@@ -251,7 +284,7 @@
           </tr>
           <tr>
             <td>
-              <input type="button" class="button_style" value="Wishlist" onclick="location.href='@Url.Action("GetWishlist", "Bookshelf")'" />
+              <input type="button" class="button_style" value="Wishlist" onclick="location.href='@Url.Action("Wishlist", "Bookshelf")'" />
             </td>
           </tr>
           <tr>

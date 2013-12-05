@@ -28,14 +28,16 @@ namespace MvcApplication1.Utils
 
                 book = db.Books.Find(bookID);
 
-                //This line is needed because LINQ requests are lazily loaded and the
-                //TestDbContext was being destroyed before the Course was being resolved.
-                //The same thing will need to be done for all foreign key lookups.
-                book.Course = book.Course;
-
                 if (book == null)
                 {
                     //no book with the given ID, report error?
+                }
+                else
+                {
+                    //This line is needed because LINQ requests are lazily loaded and the
+                    //TestDbContext was being destroyed before the Course was being resolved.
+                    //The same thing will need to be done for all foreign key lookups.
+                    book.Course = book.Course;
                 }
             }
 
@@ -43,7 +45,7 @@ namespace MvcApplication1.Utils
         }
 
         //test function for initializing database
-        private static void initBookDb(TestDbContext db)
+        public static void initBookDb(TestDbContext db)
         {
             db.Books.Add(new Book
             {

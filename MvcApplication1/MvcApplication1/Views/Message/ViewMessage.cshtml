@@ -3,14 +3,26 @@
     ViewBag.Title = "ViewMessage";
 
     var m = ViewData["currentMessage"] as MvcApplication1.Models.Message;
+    var replyTarget = ViewData["replyTarget"];
 }
 
-<h2>ViewMessage</h2>
-<div id="messageData"><p>@m.Message1</p></div>
+<h2>Correspondance with @replyTarget</h2>
+<div id="messageData"><textarea wrap="soft" cols="65" rows="15" readonly class="viewmessage">@m.Message1</textarea></div>
 <button id="close">Close</button>
+<button id="reply">Reply</button>
+
 
 <script>
     $('#close').click(function () {
         $('#overlay_parent').css('visibility', 'hidden');
+
     });
+
+    $('#reply').click(function () {
+        $.get('@Url.Action("Compose", "Message", new { recipient=@replyTarget })', null, function (result) {
+            $('#overlay_content').html(result);
+
+        });
+    });
+
 </script>

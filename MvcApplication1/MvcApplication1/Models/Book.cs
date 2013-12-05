@@ -5,6 +5,11 @@ namespace MvcApplication1.Models
 {
     public partial class Book
     {
+        public Book()
+        {
+            this.Listings = new List<Listing>();
+        }
+
         public int BookID { get; set; }
         public string BookName { get; set; }
         public string ISBN { get; set; }
@@ -13,5 +18,6 @@ namespace MvcApplication1.Models
         public byte[] CoverPic { get; set; }
         public Nullable<int> CourseID { get; set; }
         public virtual Course Course { get; set; }
+        public virtual ICollection<Listing> Listings { get; set; }
     }
 }

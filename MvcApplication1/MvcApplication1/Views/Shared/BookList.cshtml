@@ -34,12 +34,15 @@
         </td>
         </tr>
    </table>
+
+
 </div>
+
 <script>
     $(@Html.Raw(String.Format("'#list_box_{0}'", i))).click(function (event) {
         $('#overlay_content').html('<progress max="100"></progress>');
         $('#overlay_parent').css('visibility', 'visible');
-        $.post('@Html.Raw(@Url.Action("BookDetails", "Bookshelf", new {BookName=book.BookName, Author=book.Author, Description=book.Description, ISBN=book.ISBN, CourseID=book.CourseID}))',
+        $.post('@Html.Raw(@Url.Action("BookDetails", "Browse", new {BookName=book.BookName, Author=book.Author, Description=book.Description, ISBN=book.ISBN, BookID = book.BookID}))',
                         null, function (result) {
                             $('#overlay_content').html(result);
         });
@@ -50,3 +53,5 @@
         }
   }
 }
+
+

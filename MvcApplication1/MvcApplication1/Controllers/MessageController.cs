@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcApplication1.Models;
+using MvcApplication1.Utils;
 
 namespace MvcApplication1.Controllers
 {
@@ -17,19 +18,50 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
-        //get recieved messages for specified user  
+        //get sent messages for specified user  
         //GET: /
         [HttpGet]
-        public ActionResult GetReceivedMessages(int accountid)
+        public ActionResult GetSentMessages()
         {
             List<Message> msgList;
+            string accountname = User.Identity.Name;
 
             //get list of messages with account id as 
             using (TestDbContext db = new TestDbContext())
             {
 
+                int accountid = UserUtils.UserNametoID(accountname);
+
                 IQueryable<Message> messages = from m in db.Messages
-                                               orderby m.SendDate
+                                               orderby m.SendDate descending
+                                               where m.SenderID == accountid
+                                               select m;
+
+                msgList = messages.ToList<Message>();
+
+            }
+
+            ViewData["Messages"] = msgList;
+
+            return View("~/Views/Message/MessageList.cshtml");
+        }
+
+        //get recieved messages for specified user  
+        //GET: /
+        [HttpGet]
+        public ActionResult GetReceivedMessages()
+        {
+            List<Message> msgList;
+            string accountname = User.Identity.Name;
+            
+            //get list of messages with account id as 
+            using (TestDbContext db = new TestDbContext())
+            {
+
+                int accountid = UserUtils.UserNametoID(accountname);
+
+                IQueryable<Message> messages = from m in db.Messages
+                                               orderby m.SendDate descending
                                                where m.RecipientID == accountid
                                                select m;
 
@@ -45,17 +77,23 @@ namespace MvcApplication1.Controllers
         //grab web form for sending a message  
         //GET: /
         [HttpGet]
-        public ActionResult Compose()
+        public ActionResult Compose(string recipient = "no recipient")
         {
+            ViewData["Recipient"] = recipient;
+            
             return View("~/Views/Message/Compose.cshtml");
         }
 
         //send a message through a post  
         //GET: /
         [HttpPost]
-        public ActionResult Send(string recipient = "no recipient", string sender = "no sender", String subject = "no subject", String message = "empty message")
+        public ActionResult Send(string recipient = "no recipient", string sender = "no sender", String message = "empty message")
         {
-            //convert names to strings?
+            //convert recipient name to id
+            int recipientid = UserUtils.UserNametoID(recipient);
+            string accountname = User.Identity.Name;
+            int senderid = UserUtils.UserNametoID(accountname);
+
 
             //create a new message object
 
@@ -65,10 +103,9 @@ namespace MvcApplication1.Controllers
                 db.Messages.Add(new Message{
                     IsRead = false,
                     Message1 = message,
-                    MessageID = 100,
-                    RecipientID = 996,
+                    RecipientID = recipientid,
                     SendDate = DateTime.Now,
-                    SenderID = 100,
+                    SenderID = senderid,
                     SenderName = sender}
                     );
 
@@ -95,9 +132,28 @@ namespace MvcApplication1.Controllers
 
                 myMessage = messages.ToList<Message>().First<Message>();
 
-            }
 
-            ViewData["currentMessage"] = myMessage;
+                string replyTarget = "";
+                ViewData["currentMessage"] = myMessage;
+                string recipient = UserUtils.UserIDtoName(myMessage.RecipientID.Value); ;
+                string sender = UserUtils.UserIDtoName(myMessage.SenderID.Value);
+                int myID = UserUtils.UserNametoID(User.Identity.Name);
+                if (myID == myMessage.RecipientID)
+                {
+                    replyTarget = sender;
+
+                    //mark message as read
+                    myMessage.IsRead = true;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    replyTarget = recipient;
+                }
+                ViewData["replyTarget"] = replyTarget; 
+          
+            }
+          
             return View("~/Views/Message/ViewMessage.cshtml");
         }
         //

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Bookshelf";
+    ViewBag.Title = "Wishlist";
 }
 
 
@@ -16,7 +16,7 @@
     };
     var loadBookList = function () {
         $("#bookList").html('<progress max="100"></progress>');
-        $.get('@Url.Action("GetBookshelf","Bookshelf")', null, function (result) {
+        $.get('@Url.Action("GetWishlist","Bookshelf")', null, function (result) {
             $("#bookList").html(result);
 
         });

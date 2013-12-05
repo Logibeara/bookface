@@ -199,20 +199,15 @@
     <Compile Include="Models\Mapping\ListingMap.cs" />
     <Compile Include="Models\Mapping\MessageMap.cs" />
     <Compile Include="Models\Mapping\StartDbMap.cs" />
-    <Compile Include="Models\Mapping\UserProfileMap.cs" />
-    <Compile Include="Models\Mapping\webpages_MembershipMap.cs" />
-    <Compile Include="Models\Mapping\webpages_OAuthMembershipMap.cs" />
-    <Compile Include="Models\Mapping\webpages_RolesMap.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\StartDb.cs" />
     <Compile Include="Models\TestDbContext.cs" />
-    <Compile Include="Models\webpages_Membership.cs" />
-    <Compile Include="Models\webpages_OAuthMembership.cs" />
-    <Compile Include="Models\webpages_Roles.cs" />
     <Compile Include="Model_Extensions\CourseExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\BookUtils.cs" />
     <Compile Include="Utils\CourseUtils.cs" />
+    <Compile Include="Utils\ListingUtils.cs" />
+    <Compile Include="Utils\UserUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -274,6 +269,7 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\Bookface.png" />
     <Content Include="Images\mail.png" />
+    <Content Include="Images\mailred.png" />
     <Content Include="Images\placeholder.jpg" />
     <Content Include="Images\search-icon.png" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -341,6 +337,9 @@
     <Content Include="Views\Shared\BookDetails.cshtml" />
     <Content Include="Views\Message\ViewMessage.cshtml" />
     <Content Include="Views\Bookshelf\AddBook.cshtml" />
+    <Content Include="Views\Shared\ListingList.cshtml" />
+    <Content Include="Views\Shared\ListingDetails.cshtml" />
+    <Content Include="Views\Bookshelf\Wishlist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

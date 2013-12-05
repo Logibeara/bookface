@@ -1,48 +1,17 @@
 ﻿@{
     Layout = null;
-    MvcApplication1.Models.Book book = (MvcApplication1.Models.Book) ViewData["book"];
-    List<MvcApplication1.Models.Listing> listings = book.Listings.ToList<MvcApplication1.Models.Listing>();
+
+    MvcApplication1.Models.Listing listing;
+    List<MvcApplication1.Models.Listing> list = (List<MvcApplication1.Models.Listing>)ViewData["ListingList"];
+    
+    
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>BookDetails</title>
-</head>
-<body>
-    <div>
-        <table>
-            <tbody>
-                <tr><td>Title: </td><td>@book.BookName</td></tr>
-                <tr><td>Author: </td><td>@book.Author</td></tr>
-                <tr><td>Description: </td><td>@book.Description</td></tr>
-                <tr><td>ISBN: </td><td>@book.ISBN</td></tr>
-                <tr /><tr /><tr /><tr />
-                <tr><td>Course: </td><td>@book.Course.abbrev()</td></tr>
-                <tr><td>Instructor: </td><td>@book.Course.Instructor</td></tr>
-            </tbody>
-        </table>
-
-        <button id="close">Close</button>
-    </div>
-
-
-<script>
-    $('#close').click(function () {
-        $('#overlay_parent').css('visibility', 'hidden');
-    });
-</script>
-
-<h2 >Available Listings:</h2>
-
-
-@{if (listings != null)
+@{if (list != null)
   {
-      for (int i = 0; i < listings.Count; i++)
+      for (int i = 0; i < list.Count; i++)
       {
-          MvcApplication1.Models.Listing listing = listings[i];
+          listing = list[i];
           
 <div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
     <table class="list_box_table">
@@ -75,13 +44,11 @@
         $.post('@Html.Raw(@Url.Action("ListingDetails", "Bookshelf", new { bookID = listing.BookID, seller = listing.UserID, price = listing.Price, BookName = listing.Book.BookName, Author = listing.Book.Author, Description = listing.Book.Description, ISBN = listing.Book.ISBN, CourseID = listing.Book.CourseID }))',
                         null, function (result) {
                             $('#overlay_content').html(result);
-                        });
+        });
 
 
     });
 </script>
-   }
+      }
   }
-}      
-</body>
-</html>
+}

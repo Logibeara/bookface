@@ -21,6 +21,10 @@ namespace MvcApplication1.Models
     [Table("UserProfile")]
     public class UserProfile
     {
+        public UserProfile()
+        {
+        }
+
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
