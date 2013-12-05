@@ -17,7 +17,10 @@ namespace MvcApplication1.Controllers
         {
             return View();
         }
-
+        public ActionResult Wishlist()
+        {
+            return View("~/Views/Bookshelf/Wishlist.cshtml");
+        }
         public ActionResult GetBookshelf()
         {
             /*
@@ -68,6 +71,7 @@ namespace MvcApplication1.Controllers
 
         public ActionResult GetWishlist()
         {
+            List<Listing> listingList;
             using (TestDbContext db = new TestDbContext())
             {
 
@@ -76,13 +80,26 @@ namespace MvcApplication1.Controllers
                 IQueryable<Listing> listings = from l in db.Listings
                                                orderby l.ListDate descending
                                                where l.UserID == accountid
-                                               where l.ListType == 0 //1 is books to buy
+                                               where l.ListType == 1 //1 is books to buy
                                                select l;
 
-                ViewData["ListingList"] = listings.ToList<Listing>();
-
+                listingList = listings.ToList<Listing>();
+                foreach (var l in listingList)
+                {
+                    if (l != null)
+                    {
+                        //due to lazy loading, resolve all foreign key references
+                        //listing.UserProfile = listing.UserProfile;
+                        l.Book = l.Book;
+                        l.Book.Course = l.Book.Course;
+                    }
+                    else
+                    {
+                        //no listing with the given ID, report error?
+                    }
+                }
             }
-
+            ViewData["ListingList"] = listingList;
             return View("~/Views/Shared/ListingList.cshtml");
         }
 
