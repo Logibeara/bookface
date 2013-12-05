@@ -40,7 +40,7 @@
     };
 
 
-    var messagesRecieved = function () {
+    var messagesReceived = function () {
 
         $.get('@Url.Action("GetReceivedMessages", "message")', null, function (result) {
             $("#messagelist").html(result);
@@ -59,13 +59,13 @@
     $(document).ready(function () {
 
         $("input#msgRecNav").click(function () {
-            messagesRecieved();
+            messagesReceived();
         });
 
         $("input#msgSentNav").click(function () {
             messagesSent();
         });
 
-        messagesRecieved();
+        messagesReceived();
     });
 </script>

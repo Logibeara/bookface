@@ -20,16 +20,17 @@ namespace MvcApplication1.Controllers
 
         public ActionResult GetList()
         {
+            //TODO get user's listings instead of hardcoded listing IDs
             int[] IDs = { 1, 2, 3, 4, 5 };
 
-            List<Book> bookList = new List<Book>();
+            List<Listing> list = new List<Listing>();
             for (int i = 0; i < IDs.Length; i++)
             {
-                bookList.Add(BookUtils.getBook(IDs[i]));
+                list.Add(ListingUtils.getListing(IDs[i]));
             }
 
-            ViewData["BookList"] = bookList;
-            return View("~/Views/Shared/BookList.cshtml");
+            ViewData["ListingList"] = list;
+            return View("~/Views/Shared/ListingList.cshtml");
         }
 
         public ActionResult PopupTest(int id)
@@ -87,8 +88,8 @@ namespace MvcApplication1.Controllers
             return View("~/Views/Bookshelf/AddBook.cshtml");
         }
 
-        //book details popup getter
-        public ActionResult BookDetails(MvcApplication1.Models.Book clickedBook)
+        //listing details popup getter
+        public ActionResult ListingDetails(string seller, decimal? price, MvcApplication1.Models.Book clickedBook)
         {
             if (clickedBook.CourseID > 0)
             {
@@ -98,8 +99,10 @@ namespace MvcApplication1.Controllers
                 }
             }
 
+            ViewData["seller"] = (seller == null) ? "" : seller;
+            ViewData["price"] = (price == null) ? 0m : price;
             ViewData["book"] = clickedBook;
-            return View("~/Views/Shared/BookDetails.cshtml");
+            return View("~/Views/Shared/ListingDetails.cshtml");
         }
     }
 }

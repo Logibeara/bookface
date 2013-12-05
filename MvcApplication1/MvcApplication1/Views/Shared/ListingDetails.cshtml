@@ -1,5 +1,7 @@
 ﻿@{
     Layout = null;
+    string seller = (string) ViewData["seller"];
+    decimal price = (decimal) ViewData["price"];
     MvcApplication1.Models.Book book = (MvcApplication1.Models.Book) ViewData["book"];
 }
 
@@ -14,6 +16,9 @@
     <div>
         <table>
             <tbody>
+                <tr><td>Seller:</td><td>@seller</td></tr>
+                <tr><td>Price:</td><td>@String.Format("{0:C}", price)</td></tr>
+                <tr /><tr /><tr /><tr /><tr /><tr /><tr />
                 <tr><td>Title: </td><td>@book.BookName</td></tr>
                 <tr><td>Author: </td><td>@book.Author</td></tr>
                 <tr><td>Description: </td><td>@book.Description</td></tr>

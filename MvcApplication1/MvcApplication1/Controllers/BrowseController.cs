@@ -33,6 +33,7 @@ namespace MvcApplication1.Controllers
             }
 
             ViewData["BookList"] = bookList;
+            ViewData["isListing"] = true;
             return View("~/Views/Shared/BookList.cshtml");
         }
 
@@ -66,6 +67,21 @@ namespace MvcApplication1.Controllers
                        ViewData["BookList"] = bookList;
                        return View("~/Views/Shared/BookList.cshtml");
             }
+        }
+
+        //book details popup getter
+        public ActionResult BookDetails(MvcApplication1.Models.Book clickedBook)
+        {
+            if (clickedBook.CourseID > 0)
+            {
+                using (TestDbContext db = new TestDbContext())
+                {
+                    clickedBook.Course = db.Courses.Find(clickedBook.CourseID);
+                }
+            }
+
+            ViewData["book"] = clickedBook;
+            return View("~/Views/Shared/BookDetails.cshtml");
         }
     }
 }

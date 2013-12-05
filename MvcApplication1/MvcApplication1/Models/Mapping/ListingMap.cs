@@ -19,6 +19,15 @@ namespace MvcApplication1.Models.Mapping
             this.Property(t => t.Price).HasColumnName("Price");
             this.Property(t => t.ListType).HasColumnName("ListType");
             this.Property(t => t.ListDate).HasColumnName("ListDate");
+
+            // Relationships
+            this.HasRequired(t => t.Book)
+                .WithMany(t => t.Listings)
+                .HasForeignKey(d => d.BookID);
+            this.HasRequired(t => t.UserProfile)
+                .WithMany(t => t.Listings)
+                .HasForeignKey(d => d.UserID);
+
         }
     }
 }

@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+
+    MvcApplication1.Models.Listing listing;
+    List<MvcApplication1.Models.Listing> list = (List<MvcApplication1.Models.Listing>)ViewData["ListingList"];
+    
+    
+}
+
+@{if (list != null)
+  {
+      for (int i = 0; i < list.Count; i++)
+      {
+          listing = list[i];
+          
+<div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
+    <table class="list_box_table">
+   		<tr>
+        <td>
+      		<img class="thumbnail" src="~/Images/heroAccent.png">
+   		</td>
+        <td id="Title" class="title">
+            @listing.Book.BookName
+        </td>
+        <td id="Author" class="author">
+        	@listing.Book.Author
+        </td>
+        <td id="Seller" class="seller">
+            @listing.UserProfile.UserName
+        </td>
+        <td id="Price" class="price">
+            @String.Format("{0:C}", listing.Price)
+        </td>
+        </tr>
+   </table>
+</div>
+<script>
+    $(@Html.Raw(String.Format("'#list_box_{0}'", i))).click(function (event) {
+        $('#overlay_content').html('<progress max="100"></progress>');
+        $('#overlay_parent').css('visibility', 'visible');
+        $.post('@Html.Raw(@Url.Action("ListingDetails", "Bookshelf", new { seller = listing.UserProfile.UserName, price = listing.Price, BookName = listing.Book.BookName, Author = listing.Book.Author, Description = listing.Book.Description, ISBN = listing.Book.ISBN, CourseID = listing.Book.CourseID }))',
+                        null, function (result) {
+                            $('#overlay_content').html(result);
+        });
+
+
+    });
+</script>
+      }
+  }
+}
