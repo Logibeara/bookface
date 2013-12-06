@@ -146,5 +146,55 @@ namespace MvcApplication1.Controllers
             ViewData["book"] = resolvedBook;
             return View("~/Views/Shared/BookDetails.cshtml");
         }
+
+        [HttpGet]
+        public ActionResult getBook(string bookName)
+        {
+            using (TestDbContext db = new TestDbContext())
+            {
+                Book book;
+                var books = (from b in db.Books
+                             where b.BookName == bookName
+                             select b).ToList();
+                if (books.Count > 0 && books[0] != null)
+                {
+                    book = books[0];
+
+                    book.ISBN = book.ISBN == null ? "" : book.ISBN.Trim();
+                    book.Author = book.Author == null ? "" : book.Author.Trim();
+                    book.Description = book.Description == null ? "" : book.Description.Trim();
+
+                    if (book.Course == null)
+                    {
+                        book.Course = new Course();
+                        book.Course.CourseName = "";
+                    }
+                    else if (book.Course.CourseName == null)
+                    {
+                        book.Course.CourseName = "";
+                    }
+                }
+                else
+                {
+                    book = new Book();
+                    book.BookName = "";
+                    book.Course = new Course();
+                    book.Course.CourseName = "";
+                    book.Author = "";
+                    book.ISBN = "";
+                    book.Description = "";
+                }
+
+                var retBook = new
+                {
+                    Author = book.Author,
+                    ISBN = book.ISBN,
+                    CourseName = book.Course.CourseName,
+                    Description = book.Description,
+                };
+
+                return Json(retBook, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
