@@ -19,15 +19,10 @@
         //send message
         //call funciton to grab html
 
-        $.post('@Url.Action("Send", "Message")',$('#messageForm').serialize(), function (result) {
+        $.post('@Url.Action("Send", "Message")', $('#messageForm').serialize(), function (result) {
             $('#overlay_content').html(result + '<br><button id="CloseDiv">Close</button>');
             $('#CloseDiv').click(function () {
                 $('#overlay_parent').css('visibility', 'hidden');
-                if ($("#messagelist").length) {//see if its there
-                    $.get('@Url.Action("GetReceivedMessages", "message", new { accountid = 996 })', null, function (result) {
-                        $("#messagelist").html(result);
-
-                    });
                 if (typeof messagesSent != 'undefined') {//see if its there
                     messagesSent();
                 }
