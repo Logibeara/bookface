@@ -25,6 +25,26 @@
         });
     }
 
+    $('#BookName').autocomplete({
+        source: '@Url.Action("AutoComplete", "Browse")',
+        minLength: 2,
+        select: function (event, ui) {
+            $.ajax({
+                url: '@Url.Action("getBook", "Browse")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: { bookName: ui.item.value },
+                success: function (book) {
+                    $('#iSBN').val(book.ISBN);
+                    $('#author').val(book.Author);
+                    $('#course').val(book.CourseName);
+                    //$('#description').val(book.Description);
+                }
+            });
+        }
+    });
+
 </script>
 
 
