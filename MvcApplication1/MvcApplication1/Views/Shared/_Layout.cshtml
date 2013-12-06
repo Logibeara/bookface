@@ -309,13 +309,16 @@
        
         };
         window.onresize = window.onload;
-        $('#search_bar').autocomplete({
+         $('#search_bar').autocomplete({
             source: '@Url.Action("AutoComplete", "Browse")',
                  minLength: 2,
                  select: function(event, ui){
-                     //We Could do cool stuff here, but this is still so cool
+                     location.href = "/Browse/Search?bookName=" + ui.item.value;
                  }
-             });
+        });
+        $('#search_button').click(function(){
+            location.href = "/Browse/Search?bookName=" + $('#search_bar').val();
+        });
     </script>
   </body>
 

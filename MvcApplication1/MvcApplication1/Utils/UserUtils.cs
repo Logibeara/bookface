@@ -33,7 +33,7 @@ namespace MvcApplication1.Utils
         public static int UserNametoID(String userName)
         {
 
-            int id = 999;
+            int id = -1;
             using (UsersContext db = new UsersContext())
             {
                 IQueryable<UserProfile> users = (from u in db.UserProfiles
@@ -41,7 +41,10 @@ namespace MvcApplication1.Utils
                                                 select u);
 
                 //id = user.UserId;
-                id = users.First().UserId;
+                if (users.Count() > 0)
+                {
+                    id = users.First().UserId;
+                }
             }
             return id;
         }

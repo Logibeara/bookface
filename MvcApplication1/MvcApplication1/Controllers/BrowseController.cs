@@ -91,14 +91,41 @@ namespace MvcApplication1.Controllers
         public ActionResult Search(int courseNum = 0, string bookName = "",
                                     string courseName = "", string author = "")
         {
+        if (courseNum != 0)
+            {
+                ViewData["courseNum"] = courseNum;
+            }
+            if (!bookName.Equals(""))
+            {
+                ViewData["bookName"] = bookName;
+            }
+            if (!courseName.Equals(""))
+            {
+                ViewData["courseName"] = courseName;
+            }
+            if (!author.Equals(""))
+            {
+                ViewData["author"] = courseName;
+            }
+            return View("~/Views/Search/Search.cshtml");
+        }
+
+public ActionResult GetListingList(int courseNum = 0, string bookName = "",
+                                    string courseName = "", string author = "")
+        {
             using(TestDbContext db = new TestDbContext())
             {
-                List<Book> bookList = db.Books.Where(b => b.BookName.Equals(bookName) ||
-                       b.Course.CourseName.Equals(courseName) ||
-                       (courseNum == b.Course.CourseNumber) ||
-                       b.Author.Equals(author)).ToList();
-                       ViewData["BookList"] = bookList;
-                       return View("~/Views/Shared/BookList.cshtml");
+                List<Listing> ListingList = db.Listings.Where(b => !bookName.Equals("") && b.Book.BookName.StartsWith(bookName) ||
+                       !courseName.Equals("") && b.Book.Course.CourseName.StartsWith(courseName) ||
+                       (courseNum == b.Book.Course.CourseNumber) ||
+                      !author.Equals("")&& b.Book.Author.StartsWith(author)).ToList();
+                for (int i = 0; i < ListingList.Count(); i++)
+                {
+                    ListingList.ElementAt(i).Book = ListingList.ElementAt(i).Book;
+                }
+                       ViewData["ListingList"] = ListingList;
+                       ViewResult view = View("~/Views/Shared/ListingList.cshtml");
+                       return view;
             }
         }
 
