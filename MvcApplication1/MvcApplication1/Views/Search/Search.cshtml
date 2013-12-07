@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Search";
+    object parameters = null;
+    if(ViewData.ContainsKey("courseNum")){
+        parameters = new{ courseNum = (int)ViewData["courseNum"]};
+    }
+    if (ViewData.ContainsKey("bookName"))
+    {
+       parameters = new { bookName = (string)ViewData["bookName"]};
+    }
+    if (ViewData.ContainsKey("courseName"))
+    {
+        parameters = new {courseName = (string)ViewData["courseName"] };
+    }
+    if (ViewData.ContainsKey("author"))
+    {
+        parameters = new { author = (string)ViewData["author"] };
+    }
+ }
+<script>
+    //AJAX call to get book list
+    document.onload = function () {
+        
+    }
+
+    $.get('@Url.Action("GetListingList", "browse", parameters)', null, function (result) {
+        $("#BookList").html(result);
+    });
+</script>
+
+<div style ="width:100%" id="BookList"></div>

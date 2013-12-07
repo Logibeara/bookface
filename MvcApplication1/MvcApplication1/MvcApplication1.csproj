@@ -340,6 +340,7 @@
     <Content Include="Views\Shared\ListingList.cshtml" />
     <Content Include="Views\Shared\ListingDetails.cshtml" />
     <Content Include="Views\Bookshelf\Wishlist.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
