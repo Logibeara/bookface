@@ -4,18 +4,16 @@
     MvcApplication1.Models.Book book;
     List<MvcApplication1.Models.Book> bookList = (List<MvcApplication1.Models.Book>) ViewData["BookList"];
 }
-
+<table class="list_box_table">
 @{if(bookList != null)
   {
       for (int i = 0; i < bookList.Count; i++)
       {
           book = bookList[i];
           
-<div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
-    <table class="list_box_table">
-   		<tr>
-        <td>
-      		<img class="thumbnail" src="~/Images/heroAccent.png">
+   		<tr class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
+        <td class="thumbnail" >
+      		<img src="~/Images/heroAccent.png">
    		</td>
         <td id="Title" class="title">
             @book.BookName
@@ -33,12 +31,7 @@
         	@book.Course.Semester
         </td>
         </tr>
-   </table>
-
-
-</div>
-
-<script>
+    <script>
     $(@Html.Raw(String.Format("'#list_box_{0}'", i))).click(function (event) {
         $('#overlay_content').html('<progress max="100"></progress>');
         $('#overlay_parent').css('visibility', 'visible');
@@ -46,12 +39,15 @@
                         null, function (result) {
                             $('#overlay_content').html(result);
         });
-
-
     });
-</script>
+    </script>
+ 
         }
-  }
+    }
 }
+</table>
+
+ 
+
 
 

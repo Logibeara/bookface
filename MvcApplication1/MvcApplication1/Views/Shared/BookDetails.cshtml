@@ -37,37 +37,24 @@
 
 <h2 >Available Listings:</h2>
 
-
+<table class="list_box_table">
 @{if (listings != null)
   {
       for (int i = 0; i < listings.Count; i++)
       {
           MvcApplication1.Models.Listing listing = listings[i];
-          
-<div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
-    <table class="list_box_table">
-   		<tr>
-        <td>
-      		<img class="thumbnail" src="~/Images/heroAccent.png">
+    
+   		<tr class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
+        <td class="thumbnail" >
+      		<img src="~/Images/heroAccent.png">
    		</td>
-        <td id="Title" class="title">
-            @listing.Book.BookName
-        </td>
-        <td id="Author" class="author">
-        	@listing.Book.Author
-        </td>
-        <td id="BookID" class="bookid">
-        	@listing.Book.BookID
-        </td>
         <td id="Seller" class="seller">
-            unavailable
+            Sold by @MvcApplication1.Utils.UserUtils.UserIDtoName(listing.UserID):
         </td>
         <td id="Price" class="price">
             @String.Format("{0:C}", listing.Price)
         </td>
         </tr>
-   </table>
-</div>
 <script>
     $(@Html.Raw(String.Format("'#list_box_{0}'", i))).click(function (event) {
         $('#overlay_content').html('<progress max="100"></progress>');
@@ -76,12 +63,13 @@
                         null, function (result) {
                             $('#overlay_content').html(result);
                         });
-
-
     });
 </script>
+
    }
   }
-}      
+}  
+</table>
+    
 </body>
 </html>
