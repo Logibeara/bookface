@@ -37,6 +37,8 @@ namespace MvcApplication1.Controllers
 
             using (TestDbContext db = new TestDbContext())
             {
+                //scrub db of all expired listings before fetching
+                removeExpiredListings(db);
 
                 int accountid = UserUtils.UserNametoID(User.Identity.Name);
 
@@ -225,6 +227,20 @@ namespace MvcApplication1.Controllers
             }
             ViewData["book"] = resolvedBook;
             return View("~/Views/Shared/ListingDetails.cshtml");
+        }
+
+        private void removeExpiredListings(TestDbContext db)
+        {
+            var expiredListings = (from l in db.Listings
+                                   where System.Data.Objects.EntityFunctions.DiffDays(l.ListDate, DateTime.Now) > 90
+                                   select l).ToList();
+
+            foreach (Listing listing in expiredListings)
+            {
+                db.Listings.Remove(listing);
+            }
+
+            db.SaveChanges();
         }
     }
 }

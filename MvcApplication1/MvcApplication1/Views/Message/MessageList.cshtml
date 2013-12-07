@@ -35,8 +35,8 @@
       
       
    		<tr  @Html.Raw(String.Format("id=\"{0}\"", m.MessageID)) class="list_box_class" >
-        <td> 
-        <img class="msgthumbnail" src="@mailIcon">
+        <td class="msgthumbnail"> 
+        <img style="width:30px" src="@mailIcon">
    		</td>
 
         <td  id="Sender" class="sender">
@@ -74,6 +74,7 @@
         }
     });
 </script>
+    
   }
 }
 

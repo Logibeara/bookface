@@ -6,6 +6,7 @@
     
     
 }
+<table class="list_box_table">
 
 @{if (list != null)
   {
@@ -13,30 +14,23 @@
       {
           listing = list[i];
           
-<div class="list_box_class" @Html.Raw(String.Format("id=\"list_box_{0}\"", i))>
-    <table class="list_box_table">
-   		<tr>
-        <td>
-      		<img class="thumbnail" src="~/Images/heroAccent.png">
+   		<tr @Html.Raw(String.Format("id=\"list_box_{0}\"", i)) class="list_box_class">
+        <td class="thumbnail">
+      		<img  src="~/Images/heroAccent.png">
    		</td>
         <td id="Title" class="title">
             @listing.Book.BookName
         </td>
         <td id="Author" class="author">
         	@listing.Book.Author
-        </td>
-        <td id="BookID" class="bookid">
-        	@listing.Book.BookID
-        </td>
+        </td> 
         <td id="Seller" class="seller">
-            unavailable
+            @MvcApplication1.Utils.UserUtils.UserIDtoName(listing.UserID)
         </td>
         <td id="Price" class="price">
             @String.Format("{0:C}", listing.Price)
         </td>
         </tr>
-   </table>
-</div>
 <script>
     $(@Html.Raw(String.Format("'#list_box_{0}'", i))).click(function (event) {
         $('#overlay_content').html('<progress max="100"></progress>');
@@ -52,3 +46,4 @@
       }
   }
 }
+</table>
