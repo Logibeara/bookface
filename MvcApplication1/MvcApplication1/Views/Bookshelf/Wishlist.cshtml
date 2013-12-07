@@ -10,11 +10,11 @@
         $('#overlay_parent').css('visibility', 'visible');
         $('#overlay_content').html('<progress max="100"></progress>');
         //call funciton to grab html
-        $.get('@Url.Action("AddBookDialog", "Bookshelf")', null, function (result) {
+        $.get('@Url.Action("AddBooktoWishlistDialog", "Bookshelf")', null, function (result) {
             $('#overlay_content').html(result);
         });
     };
-    var loadBookList = function () {
+    var loadBookWishList = function () {
         $("#bookList").html('<progress max="100"></progress>');
         $.get('@Url.Action("GetWishlist","Bookshelf")', null, function (result) {
             $("#bookList").html(result);

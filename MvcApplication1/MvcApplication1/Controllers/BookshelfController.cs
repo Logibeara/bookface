@@ -111,7 +111,7 @@ namespace MvcApplication1.Controllers
 
         public ActionResult AddListing(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", String price = "$0.00", int listingType = -1)
         {
-            if (listingType != 0 && listingType != 1) return Content("Book Add Failed");
+            if (listingType == -1) return Content("Book Add Failed");
             String user = User.Identity.Name;
             if (user != null)
             {
@@ -158,8 +158,8 @@ namespace MvcApplication1.Controllers
                     //add the Listing date to the Listing object
                     listToAdd.ListDate = DateTime.Now;
                     listToAdd.Price = Convert.ToDecimal(price);
-                    //set list type to 0
-                    listToAdd.ListType = 0;
+                    //set list type to what ever it needs to be
+                    listToAdd.ListType = listingType;
                     //add the liting to the database
                     db.Listings.Add(listToAdd);
                     db.SaveChanges();
@@ -184,6 +184,12 @@ namespace MvcApplication1.Controllers
         public ActionResult AddBookDialog()
         {
             return View("~/Views/Bookshelf/AddBook.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult AddBookToWishlistDialog()
+        {
+            return View("~/Views/Bookshelf/AddBookToWishlist.cshtml");
         }
 
         //listing details popup getter
