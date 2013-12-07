@@ -2,6 +2,7 @@
     Layout = null;
     string seller = (string) ViewData["seller"];
     decimal price = (decimal) ViewData["price"];
+    int listingID = (int) ViewData["listID"];
     MvcApplication1.Models.Book book = (MvcApplication1.Models.Book) ViewData["book"];
 }
 
@@ -30,7 +31,15 @@
         </table>
 
         <button id="close">Close</button>
-        <button id="reply">Message Seller</button>
+        @{if(User.Identity.Name.ToLower() != seller){
+              <button id="reply">Message Seller</button>
+          }
+          else
+          {    
+              <button id="remove">Remove Listing</button>
+          }
+        }
+        
 
     </div>
 </body>
@@ -45,5 +54,20 @@
                 $('#overlay_content').html(result);
 
             });
+    });
+    $('#remove').click(function () {
+        $.post('@Url.Action("RemoveListing", "Bookshelf", new { listId=@listingID})', null, function (result) {
+            $('#overlay_content').html(result + '<br><button id="CloseDiv">Close</button>');
+            $('#CloseDiv').click(function () {
+                $('#overlay_parent').css('visibility', 'hidden');
+                if (typeof loadBookWishList != 'undefined') {//see if its there
+                    loadBookWishList();
+                }
+                else if (typeof loadBookList != 'undefined') {//see if its there
+                    loadBookList();
+                }
+            });
+
         });
+     });
 </script>

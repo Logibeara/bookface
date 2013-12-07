@@ -10,6 +10,7 @@ namespace MvcApplication1.Controllers
 {
     public class BookshelfController : Controller
     {
+        const String Ipsum = "Lorem ipsum dolor sit amet, quaeque nominati in ius, eum ut fastidii vivendum tincidunt. Ea eos discere corpora senserit.";
         //
         // GET: /Bookshelf/
 
@@ -111,7 +112,7 @@ namespace MvcApplication1.Controllers
             return View("~/Views/Bookshelf/PopupTest.cshtml");
         }
 
-        public ActionResult AddListing(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", String price = "$0.00", int listingType = -1)
+        public ActionResult AddListing(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", Decimal price = 0.00m, int listingType = -1)
         {
             if (listingType == -1) return Content("Book Add Failed");
             String user = User.Identity.Name;
@@ -123,7 +124,7 @@ namespace MvcApplication1.Controllers
                     Book bookToCheck = new Book();
                     bookToCheck.BookName = bookName;
                     bookToCheck.Author = author;
-                    bookToCheck.Description = description;
+                    bookToCheck.Description = Ipsum;
                     bookToCheck.ISBN = iSBN;
 
                     //TODO set the fields of book accoring to the data in the dialog
@@ -146,7 +147,24 @@ namespace MvcApplication1.Controllers
                     }
                     else
                     {
-                        //check for course, if it diesnt exist add course add course id to book
+                        Course tempCourse = new Course();
+                        bookToCheck.Course = tempCourse;
+                        tempCourse.CourseName = "not implimented";
+                        tempCourse.CourseNumber = 123;
+                        var courseFromDB = (from c in db.Courses
+                                           where c.CourseName == tempCourse.CourseName
+                                           where c.CourseNumber == tempCourse.CourseNumber
+                                           select c).ToList();
+                        if (courseFromDB.Count > 0)
+                        {
+                            bookToCheck.Course = courseFromDB[0];
+                            bookToCheck.CourseID = courseFromDB[0].CourseID;
+                        }
+                        else
+                        {
+                            bookToCheck.Course = tempCourse;
+                        }
+
                         db.Books.Add(bookToCheck);
                         db.SaveChanges();
                         myBook = (from b in db.Books
@@ -171,13 +189,32 @@ namespace MvcApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddBook(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", String price = "$0.00")
+        public ActionResult RemoveListing(int listId)
+        {
+            using (TestDbContext db = new TestDbContext())
+            {
+                var listToRemove = db.Listings.Find(listId);
+                if (listToRemove != null)
+                {
+                    db.Listings.Remove(listToRemove);
+                    db.SaveChanges();
+                    return Content("Listing Removed");
+                }
+                else
+                {
+                    return Content("Remove Failed");
+                }
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddBook(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", decimal price = 0.00m)
         {
             return AddListing(bookName, author, description, course, iSBN, price, 0);
         }
 
         [HttpPost]
-        public ActionResult AddBookToWishlist(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", String price = "$0.00")
+        public ActionResult AddBookToWishlist(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", decimal price = 0.00m)
         {
             return AddListing(bookName, author, description, course, iSBN, price, 1);
         }
@@ -195,7 +232,7 @@ namespace MvcApplication1.Controllers
         }
 
         //listing details popup getter
-        public ActionResult ListingDetails(string seller, decimal? price, MvcApplication1.Models.Book clickedBook)
+        public ActionResult ListingDetails(string seller, decimal? price, MvcApplication1.Models.Book clickedBook, int listID)
         {
             //if (clickedBook.CourseID > 0)
             //{
@@ -211,13 +248,14 @@ namespace MvcApplication1.Controllers
             //ViewData["seller"] = (seller == null) ? "" : seller;
             ViewData["seller"] = UserUtils.UserIDtoName(Convert.ToInt32(seller));
             ViewData["price"] = (price == null) ? 0m : price;
+            ViewData["listID"] = listID;
             Book resolvedBook = null;
             using (TestDbContext db = new TestDbContext())
             {
                 var books = (from b in db.Books
                              where b.BookID == clickedBook.BookID
                              select b).ToList();
-                if(books.Count() > 0)
+                if (books.Count() > 0)
                 {
                     resolvedBook = books[0];
 
