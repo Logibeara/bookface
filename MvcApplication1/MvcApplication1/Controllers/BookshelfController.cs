@@ -109,9 +109,9 @@ namespace MvcApplication1.Controllers
             return View("~/Views/Bookshelf/PopupTest.cshtml");
         }
 
-        [HttpPost]
-        public ActionResult AddBook(String bookName = "none", String iSBN = "none", String author = "none", String price = "$0.00")
+        public ActionResult AddListing(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", String price = "$0.00", int listingType = -1)
         {
+            if (listingType != 0 && listingType != 1) return Content("Book Add Failed");
             String user = User.Identity.Name;
             if (user != null)
             {
@@ -120,9 +120,10 @@ namespace MvcApplication1.Controllers
                 {
                     Book bookToCheck = new Book();
                     bookToCheck.BookName = bookName;
-                    bookToCheck.ISBN = iSBN;
                     bookToCheck.Author = author;
-                    
+                    bookToCheck.Description = description;
+                    bookToCheck.ISBN = iSBN;
+
                     //TODO set the fields of book accoring to the data in the dialog
                     Listing listToAdd = new Listing();
 
@@ -131,9 +132,9 @@ namespace MvcApplication1.Controllers
                     //see if book exists in database
                     //Book bookChecked = db.Books.Where(b => b.BookName.Equals(bookToCheck.BookName) && b.Author.Equals(bookToCheck.Author)).First();
                     var myBook = (from b in db.Books
-                                 where b.BookName == bookName
-                                 where b.Author == author
-                                 select b).ToList();
+                                  where b.BookName == bookName
+                                  where b.Author == author
+                                  select b).ToList();
                     if (myBook.Count > 0)
                     {
                         if (myBook[0] != null && myBook[0].BookID != null)
@@ -143,13 +144,7 @@ namespace MvcApplication1.Controllers
                     }
                     else
                     {
-                        Course course = new Course();
-                        //course.CourseName = bookToCheck.Course
-                        bookToCheck.Course = course;
-                        course.CourseName = "not implemented";
-                        course.CourseNumber = 123;
- 
-                       // db.Courses.Add(
+                        //check for course, if it diesnt exist add course add course id to book
                         db.Books.Add(bookToCheck);
                         db.SaveChanges();
                         myBook = (from b in db.Books
@@ -171,6 +166,18 @@ namespace MvcApplication1.Controllers
                 }
             }
             return Content("Book Added");
+        }
+
+        [HttpPost]
+        public ActionResult AddBook(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", String price = "$0.00")
+        {
+            return AddListing(bookName, author, description, course, iSBN, price, 0);
+        }
+
+        [HttpPost]
+        public ActionResult AddBookToWishlist(String bookName = "none", String author = "none", String description = "none", String course = "none", String iSBN = "none", String price = "$0.00")
+        {
+            return AddListing(bookName, author, description, course, iSBN, price, 1);
         }
 
         [HttpGet]
